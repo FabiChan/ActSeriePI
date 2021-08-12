@@ -28,8 +28,14 @@ class Serie {
 //Agregar Método calcularFactorial(n,fact) - JP
       
 //Agregar Método sacarTermino(x,f,fact) - Fátima
-      
-//Agregar Método imprimir(suma) - JP
+   public static double sacarTermino(double x, byte n, double fact){
+      return Math.pow(x,n)/fact;
+   }   
+
+//Agregar Método imprimir(suma) - Fátima
+   public static void imprimir(double suma){
+      System.out.println("El resultado de la suma es: "+ suma);
+   }
 }
   
   
