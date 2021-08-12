@@ -6,12 +6,11 @@ import java.util.*;
 class Serie {
    public static void main(String arg[]) {
       double x = Serie.pedirX();
-      x=Serie.validarX(x);
       double suma = 0;      
       //Si x = 0, automáticamente la suma de la serie es 1
       if(x!=0) {
          double termino = 1;
-         float fact = 1;
+         int fact = 1;
          byte n = 1;
          do {  
             suma+=termino;
@@ -40,13 +39,13 @@ class Serie {
       return x;
       }
 //Agregar Método calcularFactorial(n,fact) - JP
-      public static float calcularFactorial(byte n, float fact){
+      public static int calcularFactorial(byte n, int fact){
          return fact*= n;
       }
          
       
 //Agregar Método sacarTermino(x,f,fact) - Fátima
-   public static double sacarTermino(double x, byte n, double fact){
+   public static double sacarTermino(double x, byte n, int fact){
       return Math.pow(x,n)/fact;
    }   
 
