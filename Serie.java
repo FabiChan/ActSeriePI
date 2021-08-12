@@ -21,18 +21,19 @@ class Serie {
       Serie.imprimir(suma);
    }
 //Agregar Método pedirX() - Marifer
-   public static double PreguntarX(){
+   public static double pedirX(){
    Scanner s=new Scanner(System.in);
-      System.out.println("Escribe el número");
-      double x=s.nextDouble();  
+      System.out.println("Escribe el número de x: ");
+      double x = s.nextDouble();
+      x = Serie.validarX(x);
       return x;
       }
 //Agregar Método validarX() - Marifer
-    public static double ValidarX(double x){
+    public static double validarX(double x){
       Scanner s=new Scanner(System.in);
       while(x<0.0 || x>1.0){
-         System.out.println("Intenta otro número");
-         x=s.nextDouble();}
+         System.out.println("Intenta otro número entre 0 y 1 incluidos: ");
+         x = s.nextDouble();}
       return x;
       }
 //Agregar Método calcularFactorial(n,fact) - JP
