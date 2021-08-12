@@ -52,7 +52,7 @@ class Serie {
 //Agregar Método imprimir(suma) - Fátima
    public static void imprimir(double suma){
       DecimalFormat d = new DecimalFormat("0.00");
-      System.out.println("El resultado de la suma es: "+ d.format(suma));
+      System.out.println("El resultado de la serie es: "+ d.format(suma));
    }
 }
   
