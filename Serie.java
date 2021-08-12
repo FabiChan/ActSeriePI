@@ -41,9 +41,8 @@ class Serie {
       }
 //Agregar Método calcularFactorial(n,fact) - JP
       public static float calcularFactorial(byte n, float fact){
-         for(byte i =1;i<= n;i++)
-            fact=fact*i;
-         return fact;
+         fact *= n;
+         return n;
       }
          
       
