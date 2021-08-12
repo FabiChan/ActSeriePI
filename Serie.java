@@ -17,7 +17,7 @@ class Serie {
             n++;
          }while(termino > (Math.pow(10,-8)));
       else
-         byte suma = 1;
+         double suma = 1;
       Serie.imprimir(suma);
    }
 //Agregar Método pedirX() - Marifer
