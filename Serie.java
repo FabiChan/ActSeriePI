@@ -2,14 +2,16 @@
 //Objetivo del programa: calcular la suma de la serie
 import java.io.*;
 import java.text.*;
+import java.util.*;
 class Serie {
    public static void main(String arg[]) {
       double x = Serie.pedirX();
-      x=Serie.validarX();
+      x=Serie.validarX(x);
+      double suma = 0;      
       //Si x = 0, automáticamente la suma de la serie es 1
       if(x!=0) {
-         double suma = 0;
-         double termino = 1, fact = 1;
+         double termino = 1;
+         float fact = 1;
          byte n = 1;
          do {  
             suma+=termino;
@@ -17,14 +19,14 @@ class Serie {
             termino = Serie.sacarTermino(x,n,fact);
             n++;
          }while(termino > (Math.pow(10,-8)));
-      else
-         double suma = 1;
+      }else
+         suma = 1;
       Serie.imprimir(suma);
    }
 //Agregar Método pedirX() - Marifer
    public static double pedirX(){
    Scanner s=new Scanner(System.in);
-      System.out.println("Escribe el número de x: ");
+      System.out.println("Escribe el numero de x: ");
       double x = s.nextDouble();
       x = Serie.validarX(x);
       return x;
@@ -33,11 +35,17 @@ class Serie {
     public static double validarX(double x){
       Scanner s=new Scanner(System.in);
       while(x<0.0 || x>1.0){
-         System.out.println("Intenta otro número entre 0 y 1 incluidos: ");
+         System.out.println("Intenta otro numero entre 0 y 1 incluidos: ");
          x = s.nextDouble();}
       return x;
       }
 //Agregar Método calcularFactorial(n,fact) - JP
+      public static float calcularFactorial(byte n, float fact){
+         for(byte i =1;i<= n;i++)
+            fact=fact*i;
+         return fact;
+      }
+         
       
 //Agregar Método sacarTermino(x,f,fact) - Fátima
    public static double sacarTermino(double x, byte n, double fact){
@@ -50,5 +58,4 @@ class Serie {
       System.out.println("El resultado de la suma es: "+ d.format(suma));
    }
 }
-  
   
