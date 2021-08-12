@@ -5,6 +5,7 @@ import java.text.*;
 class Serie {
    public static void main(String arg[]) {
       double x = Serie.pedirX();
+      x=Serie.validarX();
       //Si x = 0, automáticamente la suma de la serie es 1
       if(x!=0) {
          double suma = 0;
