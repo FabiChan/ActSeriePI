@@ -10,7 +10,7 @@ class Serie {
          double suma = 0;
          double termino = 1, fact = 1;
          byte n = 1;
-         do {
+         do {  
             suma+=termino;
             fact = Serie.calcularFactorial(n,fact);
             termino = Serie.sacarTermino(x,n,fact);
@@ -21,9 +21,20 @@ class Serie {
       Serie.imprimir(suma);
    }
 //Agregar Método pedirX() - Marifer
-   
+   public static double PreguntarX(){
+   Scanner s=new Scanner(System.in);
+      System.out.println("Escribe el número");
+      double x=s.nextDouble();  
+      return x;
+      }
 //Agregar Método validarX() - Marifer
-      
+    public static double ValidarX(double x){
+      Scanner s=new Scanner(System.in);
+      while(x<0.0 || x>1.0){
+         System.out.println("Intenta otro número");
+         x=s.nextDouble();}
+      return x;
+      }
 //Agregar Método calcularFactorial(n,fact) - JP
       
 //Agregar Método sacarTermino(x,f,fact) - Fátima
