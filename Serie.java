@@ -1,7 +1,6 @@
 //Equipo alfa buena maravilla onda dinamita escuadrón lobo
 //Objetivo del programa: calcular la suma de la serie
 import java.io.*;
-import java.util.*;
 import java.text.*;
 class Serie {
    public static void main(String arg[]) {
