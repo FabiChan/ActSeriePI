@@ -3,31 +3,26 @@
 import java.io.*;
 import java.text.*;
 import java.util.*;
-class Serie {
+class SerieF {
    public static void main(String arg[]) {
-      double x = Serie.pedirX();
+      double x = SerieF.pedirX();
       double suma = 0;      
       //Si x = 0, automáticamente la suma de la serie es 1
       if(x!=0) {
          double termino = 1;
          int fact = 1;
          byte n = 1;
-         do {  
-            suma+=termino;
-            fact = Serie.calcularFactorial(n,fact);
-            termino = Serie.sacarTermino(x,n,fact);
-            n++;
-         }while(termino > (Math.pow(10,-8)));
+         suma = SerieF.sumar(suma,x,termino,fact,n);
       }else
          suma = 1;
-      Serie.imprimir(suma);
+      SerieF.imprimir(suma);
    }
 //Agregar Método pedirX() - Marifer
    public static double pedirX(){
    Scanner s=new Scanner(System.in);
       System.out.println("Escribe el numero de x: ");
       double x = s.nextDouble();
-      x = Serie.validarX(x);
+      x = SerieF.validarX(x);
       return x;
       }
 //Agregar Método validarX() - Marifer
@@ -38,6 +33,19 @@ class Serie {
          x = s.nextDouble();}
       return x;
       }
+      
+//Agregar Método sumar(suma, x, termino, fact, n)
+   public static double sumar(double suma, double x, double termino, int fact, byte n) {
+      do {  
+            suma+=termino;
+            fact = SerieF.calcularFactorial(n,fact);
+            termino = SerieF.sacarTermino(x,n,fact);
+            n++;
+      }while(termino > (Math.pow(10,-8)));
+      return suma;
+   }
+
+   
 //Agregar Método calcularFactorial(n,fact) - JP
       public static int calcularFactorial(byte n, int fact){
          return fact*= n;
@@ -52,7 +60,7 @@ class Serie {
 //Agregar Método imprimir(suma) - Fátima
    public static void imprimir(double suma){
       DecimalFormat d = new DecimalFormat("0.00");
-      System.out.println("El resultado de la serie es: "+ d.format(suma));
+      System.out.println("El resultado de la suma es: "+ d.format(suma));
    }
 }
   
