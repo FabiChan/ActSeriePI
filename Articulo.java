@@ -18,11 +18,11 @@ public class Articulo {
    
 	public Articulo() {
 		this.nombre = nombre;
-     		this.precio = precio;
+      this.precio = precio;
 	}
 	
 	public String toString() {
-	
+	return "El nuevo precio del artículo es: "+calcularNuevoPrecio();
 	}
 	
 	public double calcularNuevoPrecio() {
