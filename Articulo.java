@@ -5,7 +5,7 @@
 //  @ Project : Untitled
 //  @ File Name : Articulo.java
 //  @ Date : 8/30/2021
-//  @ Author : Equipo alfa buena maravilla onda dinamita escuadrón lobo
+//  @ Author : Equipo alfa buena maravilla onda dinamita escuadrÃ³n lobo
 //
 //
 
@@ -17,7 +17,8 @@ public class Articulo {
 	private double precio;
    
 	public Articulo() {
-	
+		this.nombre = nombre;
+     		this.precio = precio;
 	}
 	
 	public String toString() {
