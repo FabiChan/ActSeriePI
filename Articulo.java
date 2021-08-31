@@ -54,7 +54,7 @@ class Principal {
         	Articulo a1 = new Articulo(nombre,precio);
 		System.out.println(a1);
    }
-	//Método para capturar los valores de peso y altura
+	//Método para capturar el costo del producto
    	public static double capturarPrecio() {
       		Scanner s = new Scanner(System.in);
       		System.out.println("Ingrese el costo basico del articulo: ");
