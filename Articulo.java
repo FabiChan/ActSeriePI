@@ -45,22 +45,31 @@ public class Articulo {
 }
 class Principal {
 	public static void main(String args[]) {
-		
+		String nombre = Principal.capturarNombre();
+		double precio = Principal.capturarPrecio();
         	Articulo a1 = new Articulo(nombre,precio);
 		System.out.println(a1);
    }
 	//Método para capturar los valores de peso y altura
    	public static double capturarPrecio() {
       		Scanner s = new Scanner(System.in);
-      		System.out.println("Ingrese el costo básico del artículo: ");
+      		System.out.println("Ingrese el costo basico del articulo: ");
       		double precio = s.nextDouble();
       		while (precio<0) {
          		System.out.println("Ingrese un numero positivo: ");
          		precio = s.nextDouble();
       		}
       		return precio;
+	}
+	public static String capturarNombre() {
+      		Scanner s = new Scanner(System.in);
+      		System.out.println("Ingrese el nombre del articulo ");
+      		String nombre = s.next();
+      		return nombre;
    }
 
 }
+
+
 
 
