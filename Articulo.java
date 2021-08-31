@@ -13,6 +13,7 @@
 import java.text.*;
 import java.util.*;
 
+//Creamos el objeto Articulo, con nombre y precio como atributos para cambiar nuestro antiguo programa a un POO.
 
 public class Articulo {
 	private String nombre;
@@ -24,12 +25,13 @@ public class Articulo {
       		this.precio = precio;
 	}
 	
-	//Método toString()
+	//Método toString() para imprimir la respuesta
 	public String toString() {
 		DecimalFormat d = new DecimalFormat("0.00");
 		return "El nuevo precio del artículo es: $"+d.format(calcularNuevoPrecio());
 	}
 	
+	//Método matemático para calcular el nuevo precio dependiendo de que tan caro es.
 	public double calcularNuevoPrecio() {
 		if (precio>500)
          		precio = precio+6+(precio-40)*0.5;
@@ -44,6 +46,8 @@ public class Articulo {
 	}
 }
 class Principal {
+	
+	//Método main
 	public static void main(String args[]) {
 		String nombre = Principal.capturarNombre();
 		double precio = Principal.capturarPrecio();
@@ -61,6 +65,8 @@ class Principal {
       		}
       		return precio;
 	}
+	
+	//Método para ingresar el nombre del artículo comprado
 	public static String capturarNombre() {
       		Scanner s = new Scanner(System.in);
       		System.out.println("Ingrese el nombre del articulo ");
