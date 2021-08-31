@@ -26,6 +26,15 @@ public class Articulo {
 	}
 	
 	public double calcularNuevoPrecio() {
-	
+		if (precio>500)
+         		precio = precio+6+(precio-40)*0.5;
+     		else
+         		if (precio>40)
+            			precio = precio+6+(precio-40)*0.4;
+         		else 
+            			if (precio>20)
+              				 precio = precio+(precio-20)*0.3;
+      		return precio;
+
 	}
 }
