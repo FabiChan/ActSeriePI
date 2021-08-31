@@ -6,23 +6,28 @@
 //  @ File Name : Articulo.java
 //  @ Date : 8/30/2021
 //  @ Author : Equipo alfa buena maravilla onda dinamita escuadrón lobo
-//
+//  Objetivo del programa: calcular el precio total de un artículo con impuesto, el cual varía según el costo básico del artículo
 //
 
 
+import java.text.*;
+import java.util.*;
 
 
 public class Articulo {
 	private String nombre;
 	private double precio;
-   
-	public Articulo() {
+   	
+	//Método constructor
+	public Articulo(String nombre, double precio) {
 		this.nombre = nombre;
-      this.precio = precio;
+      		this.precio = precio;
 	}
 	
+	//Método toString()
 	public String toString() {
-	return "El nuevo precio del artículo es: "+calcularNuevoPrecio();
+		DecimalFormat d = new DecimalFormat("0.00");
+		return "El nuevo precio del artículo es: $"+d.format(calcularNuevoPrecio());
 	}
 	
 	public double calcularNuevoPrecio() {
@@ -38,3 +43,24 @@ public class Articulo {
 
 	}
 }
+class Principal {
+	public static void main(String args[]) {
+		
+        	Articulo a1 = new Articulo(nombre,precio);
+		System.out.println(a1);
+   }
+	//Método para capturar los valores de peso y altura
+   	public static double capturarPrecio() {
+      		Scanner s = new Scanner(System.in);
+      		System.out.println("Ingrese el costo básico del artículo: ");
+      		double precio = s.nextDouble();
+      		while (precio<0) {
+         		System.out.println("Ingrese un numero positivo: ");
+         		precio = s.nextDouble();
+      		}
+      		return precio;
+   }
+
+}
+
+
