@@ -15,7 +15,7 @@
 public class Alumno {
 	private int matricula;
 	private int cantCreditos;
-	public void Alumno() {
+	public Alumno() {
 	
 	}
 	
