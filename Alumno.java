@@ -60,12 +60,12 @@ public class Alumno {
          }while(matricula<0);
          int cantCreditos;
          do{
-         System.out.println("Escriba la cantidad de creditos que cursara");
-         cantCreditos = s.nextInt();
+         	System.out.println("Escriba la cantidad de creditos que cursara");
+         	cantCreditos = s.nextInt();
          }
          while(cantCreditos<0);
-         Alumno A1 = new Alumno(matricula, cantCreditos);
-         System.out.println(A1);
+         	Alumno A1 = new Alumno(matricula, cantCreditos);
+         	System.out.println(A1);
          }
          
     }
