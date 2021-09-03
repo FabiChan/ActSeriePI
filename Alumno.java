@@ -65,8 +65,6 @@ public class Alumno {
          }while(cantCreditos<0);
          Alumno A1 = new Alumno(matricula, cantCreditos);
          System.out.println(A1);
-	 Alumno A2 = new Alumno(matricula, cantCreditos);
-         System.out.println(A2);
       }
          
    }
