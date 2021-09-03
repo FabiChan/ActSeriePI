@@ -15,10 +15,24 @@
 public class Alumno {
 	private int matricula;
 	private int cantCreditos;
-	public Alumno() {
+	public void Alumno() {
 	
 	}
-	
+	//Creando sets y gets 
+	public void setMatricula(double matricula){
+      	this.matricula=matricula;
+      }
+    	public double getMatricula(){
+      	return matricula;
+      }
+        public void setCantCreditos(double cantCreditos){
+        this.cantCreditos=cantCreditos;
+      }
+        public double getCantCreditos(){
+        return cantCreditos;
+      }
+      
+
 	public String toString() {
 	
 	}
