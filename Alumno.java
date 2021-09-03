@@ -12,14 +12,18 @@
 
 
 
+import java.util.*;
+import java.text.*;
+
 public class Alumno {
 	private int matricula;
 	private int cantCreditos;
-	public void Alumno() {
+	public Alumno(int matricula, int cantCreditos) {
+   setMatricula(matricula);
+   setCantCreditos(cantCreditos);
 	
 	}
-	//Creando sets y gets 
-	public void setMatricula(int matricula){
+   public void setMatricula(int matricula){
       	this.matricula=matricula;
       }
     	public int getMatricula(){
@@ -32,28 +36,35 @@ public class Alumno {
         return cantCreditos;
       }
       
-
-	public String toString() {
 	
+	public String toString() {
+   DecimalFormat d = new DecimalFormat("0.00");
+		return "El costo de la colegiatura es de $"+d.format(calcularColegiatura());
 	}
 	
 	public double calcularColegiatura() {
+   double total = (cantCreditos * 2300);
+   return total;
+  
 	
-	}
-}
-class Principal{
+	}   
+   }
+   
+   class Principal{
       public static void main(String arg[]){
          Scanner s = new Scanner(System.in);
          int matricula;
          do{
-		System.out.println("Escriba su matricula");
-         	matricula = s.nextInt();
+         System.out.println("Escriba su matricula");
+         matricula = s.nextInt();
          }while(matricula<0);
          int cantCreditos;
          do{
-         	System.out.println("Escriba la cantidad de creditos que cursara");
-         	cantCreditos = s.nextInt();
+         System.out.println("Escriba la cantidad de creditos que cursara");
+         cantCreditos = s.nextInt();
          while(cantCreditos<0);
          Alumno A1 = new Alumno(matricula, cantCreditos);
          System.out.println(A1);
-}
+         }
+         
+    }
