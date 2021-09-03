@@ -44,10 +44,16 @@ public class Alumno {
 class Principal{
       public static void main(String arg[]){
          Scanner s = new Scanner(System.in);
+         int matricula;
+         do{
          System.out.println("Escriba su matricula");
-         int matricula = s.nextInt();
+         matricula = s.nextInt();
+         }while(matricula<0);
+         int cantCreditos;
+         do{
          System.out.println("Escriba la cantidad de creditos que cursara");
-         int cantCreditos = s.nextInt();
+         cantCreditos = s.nextInt();
+         while(cantCreditos<0);
          Alumno A1 = new Alumno(matricula, cantCreditos);
          System.out.println(A1);
 }
