@@ -10,8 +10,6 @@
 //
 
 
-
-
 import java.util.*;
 import java.text.*;
 
@@ -19,8 +17,8 @@ public class Alumno {
 	private int matricula;
 	private int cantCreditos;
 	public Alumno(int matricula, int cantCreditos) {
-   setMatricula(matricula);
-   setCantCreditos(cantCreditos);
+  		 setMatricula(matricula);
+   		setCantCreditos(cantCreditos);
 	
 	}
    public void setMatricula(int matricula){
@@ -43,8 +41,7 @@ public class Alumno {
 	}
 	
 	public double calcularColegiatura() {
-   double total = (cantCreditos * 2300);
-   return total;
+   return (cantCreditos * 2300);
   
 	
 	}   
@@ -53,18 +50,29 @@ public class Alumno {
    class Principal{
       public static void main(String arg[]){
          Scanner s = new Scanner(System.in);
-         int matricula;
-         do{
-         	System.out.println("Escriba su matricula");
-         	matricula = s.nextInt();
-         }while(matricula<0);
-         int cantCreditos;
-         do{
-         	System.out.println("Escriba la cantidad de creditos que cursara");
-         	cantCreditos = s.nextInt();
-         }while(cantCreditos<0);
-         Alumno A1 = new Alumno(matricula, cantCreditos);
-         System.out.println(A1);
+	 System.out.println("Escriba su matricula");
+         int matricula = Principal.capturar();
+  	 System.out.println("Escriba la cantidad de creditos que cursara");
+         int cantCreditos = Principal.capturar();
+	Alumno a1 = new Alumno(matricula, cantCreditos);
+	 System.out.println(a1);
+     System.out.println("Escriba su matricula");
+          matricula = Principal.capturar();
+  	 System.out.println("Escriba la cantidad de creditos que cursara");
+          cantCreditos = Principal.capturar();
+	 Alumno a2 = new Alumno(matricula, cantCreditos);
+	  System.out.println(a2);
+         }
+
+	      //Método para capturar los valores de peso y altura
+   public static int capturar() {
+      Scanner s = new Scanner(System.in);
+      int valor = s.nextInt();
+      while (valor<0) {
+         System.out.println("Ingrese un numero positivo: ");
+         valor = s.nextInt();
+      }
+      return valor;
       }
          
-   }
+    }
