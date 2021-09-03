@@ -9,8 +9,7 @@
 //
 //
 
-import java.util.*;
-import java.text.*;
+
 
 
 public class Alumno {
@@ -20,23 +19,22 @@ public class Alumno {
 	
 	}
 	//Creando sets y gets 
-	public void setMatricula(double matricula){
+	public void setMatricula(int matricula){
       	this.matricula=matricula;
       }
-    	public double getMatricula(){
+    	public int getMatricula(){
       	return matricula;
       }
-        public void setCantCreditos(double cantCreditos){
+        public void setCantCreditos(int cantCreditos){
         this.cantCreditos=cantCreditos;
       }
-        public double getCantCreditos(){
+        public int getCantCreditos(){
         return cantCreditos;
       }
       
 
 	public String toString() {
-		DecimalFormat d = new DecimalFormat("0.00");
-		return "El costo de la colegiatura es de $"+d.format(calcularColegiatura());
+	
 	}
 	
 	public double calcularColegiatura() {
