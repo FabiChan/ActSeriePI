@@ -41,3 +41,13 @@ public class Alumno {
 	
 	}
 }
+class Principal{
+      public static void main(String arg[]){
+         Scanner s = new Scanner(System.in);
+         System.out.println("Escriba su matricula");
+         int matricula = s.nextInt();
+         System.out.println("Escriba la cantidad de creditos que cursara");
+         int cantCreditos = s.nextInt();
+         Alumno A1 = new Alumno(matricula, cantCreditos);
+         System.out.println(A1);
+}
