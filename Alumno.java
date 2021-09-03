@@ -9,7 +9,8 @@
 //
 //
 
-
+import java.util.*;
+import java.text.*;
 
 
 public class Alumno {
@@ -34,7 +35,8 @@ public class Alumno {
       
 
 	public String toString() {
-	
+		DecimalFormat d = new DecimalFormat("0.00");
+		return "El costo de la colegiatura es de $"+d.format(calcularColegiatura());
 	}
 	
 	public double calcularColegiatura() {
