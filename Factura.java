@@ -1,46 +1,137 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
 
-class Cliente{
-   private String rfc;
-   private Nombre nombre;
-   private Direccion direccion;
 
-   public Cliente(String rfc, Nombre nombre, Direccion direccion)
+class Factura
+{
+   private int numFactura;
+   private Producto producto1;
+   private Producto producto2;
+   private Producto producto3;
+   private double descuento;
+   
+   public Factura(int numFactura, Producto producto1, Producto producto2, Producto producto3, double descuento)
    {
-      setRfc(rfc);
-      setNombre(nombre);
-      setDireccion(direccion);
+      setNumFactura(numFactura);
+      setProducto1(producto1);
+      setProducto2(producto2);
+      setProducto3(producto3);
+      setDescuento(descuento);
+   }
+
+   public void setNumFactura(int numFactura)
+   {
+      this.numFactura=numFactura;
+   }
+   public void setProducto1(Producto producto1)
+   {
+      this.producto1=producto1;
+   }
+   public void setProducto2(Producto producto2)
+   {
+      this.producto2=producto2;
+   }
+   public void setProducto3(Producto producto3)
+   {
+      this.producto3=producto3;
+   }
+   public void setDescuento(double descuento)
+   {
+      this.descuento=descuento;
    }
    
-   public void setRfc(String rfc)
+   public int getNumFactura()
    {
-   this.rfc=rfc;
+      return numFactura;
+   }
+   
+   public Producto getProducto1()
+   {
+      return producto1;
+   }
+   public Producto getProducto2()
+   {
+      return producto2;
+   }
+   public Producto getProducto3()
+   {
+      return producto3;
+   }
+   public double getDescuento()
+   {
+      return descuento;
+   }
+
+   //Calcular subtotal
+   public double calcularSubtotal(){
+      return producto1.getPrecio()*producto1.getCant()+producto2.getPrecio()*producto2.getCant()+producto3.getPrecio()*producto3.getCant();
+   }
+      
+   //Calcular descuento
+   public double calcularDescuento (){
+    double subtotal = calcularSubtotal();
+    if (descuento != 0)  
+      return subtotal*descuento;
+    return descuento;
+   }
+   
+   //Calcular IVA
+   public double calcularIVA(){
+    return (calcularSubtotal()-calcularDescuento())*0.16;
+   }
+   
+   //Calcular total
+   public double calcularTotal(){
+    return calcularSubtotal()-calcularDescuento()+calcularIVA();
+   }
+   
+   public String toString(){
+      DecimalFormat d= new DecimalFormat("0.00");
+       return "num factura: "+numFactura+" $"+d.format(calcularTotal());
+   }
+
+}
+
+class Cliente
+{
+   private Nombre nombre;
+   private Direccion direccion;
+   private String rfc;
+
+   public Cliente(Nombre nombre, Direccion direccion, String rfc)
+   {
+      setNombre(nombre);
+      setDireccion(direccion);
+      setRfc(rfc);
    }
 
    public void setNombre(Nombre nombre)
    {
    this.nombre=nombre;
    }
-   
    public void setDireccion(Direccion direccion)
    {
    this.direccion=direccion;
    }
-
-    public String getRfc()
+  
+   public void setRfc(String rfc)
    {
-      return rfc;
+   this.rfc=rfc;
    }
 
    public Nombre getNombre()
    {
       return nombre;
    }
-
    public Direccion getDireccion()
    {
       return direccion;
    }
-   
+   public String getRfc()
+   {
+      return rfc;
+   }
 }
 
 class Nombre
@@ -95,12 +186,12 @@ class Nombre
 class Direccion
 {
    private String calle;
-   private int numero;
+   private String numero;
    private String colonia;
    private String municipio;
-   private int cp;
+   private String cp;
 
-   public Direccion(String calle, int numero, String colonia, String municipio, int cp)
+   public Direccion(String calle, String numero, String colonia, String municipio, String cp)
    {
       setCalle(calle);
       setNumero(numero);
@@ -114,7 +205,7 @@ class Direccion
       this.calle=calle;
    }
 
-   public void setNumero(int numero)
+   public void setNumero(String numero)
    {
       this.numero=numero;
    }
@@ -129,7 +220,7 @@ class Direccion
       this.municipio=municipio;
    }
 
-   public void setCp(int cp)
+   public void setCp(String cp)
    {
       this.cp=cp;
    }
@@ -139,7 +230,7 @@ class Direccion
       return calle;
    }
 
-   public int getNumero()
+   public String getNumero()
    {
       return numero;
    }
@@ -154,7 +245,7 @@ class Direccion
       return municipio;
    }
 
-   public int getCp()
+   public String getCp()
    {
       return cp;
    }
@@ -164,104 +255,128 @@ class Direccion
       return calle+", "+numero+", "+colonia+", "+municipio+", "+cp;
    }
 }
-class Factura{
-   private int numFactura;
-   private Detalle detalle;
-   
-   public Factura(int numFactura, Detalle detalle){
-      setNumFactura(numFactura);
-      setDetalle(detalle);
-   }
-  
-   public void SetNumFactura(int numFactura)
-   {
-      this.numFactura=numFactura;
-   }
-  
-   public void SetDetalle(Detalle detalle)
-   {
-      this.detalle=detalle;
-   }
-    
-   public int getNumFactura()
-   {
-      return numFactura;
-   }
-  
-   public Detalle getDetalle()
-   {
-      return detalle;
-   }
-   
-}
 
-class Detalle{
-   private Producto producto1;
-   private Producto producto2;
-   private Producto producto3;
-  
-   public Detalle(){
-      setProducto1(producto1);
-      setProducto2(producto2);
-      setProducto3(producto3);
-   }
-    //aquí ya no supe
-}
-
-class Producto{
+class Producto
+{
    private int clave;
-   private String nombre;
-   private int cantidad;
+   private String nombreProducto;
+   private int cant;
    private double precio;
-      
-   public Producto(int clave, String nombre, int cantidad, double precio){
+   
+   public Producto(int clave, String nombreProducto, int cant, double precio)
+   {
       setClave(clave);
-      setNombre(nombre);
-      setCantidad(cantidad);
+      setNombreProducto(nombreProducto);
+      setCant(cant);
       setPrecio(precio);
    }
-   
+
    public void setClave(int clave)
    {
       this.clave=clave;
    }
 
-   public void setNombre(String nombre)
+   public void setNombreProducto(String nombreProducto)
    {
-      this.nombre=nombre;
+      this.nombreProducto=nombreProducto;
    }
-   
-   public void setCantidad(int cantidad)
+
+   public void setCant(int cant)
    {
-      this.cantidad=cantidad;
+      this.cant=cant;
    }
-   
-   public void setPrecio(String precio)
+
+   public void setPrecio(double precio)
    {
       this.precio=precio;
    }
-   
-    public int getClave()
+
+   public int getClave()
    {
       return clave;
    }
-   
-    public String getNombre()
+
+   public String getNombreProducto()
    {
-      return nombre;
-   }
-   
-    public int getCantidad()
-   {
-      return cantidad;
+      return nombreProducto;
    }
 
-    public double getPrecio()
+   public int getCant()
+   {
+      return cant;
+   }
+
+   public double getPrecio()
    {
       return precio;
    }
+   
+}
+
+class Empresa{
+    private Direccion direccion;
+    private String nombreEmpresa;
  
-   public String toString(){
-      return cantidad + "\t"+clave+"\t"+nombre+"\t\t $"+precio;
-   {
+    public Empresa(Direccion direccion, String nombreEmpresa)
+    {
+       setDireccion(direccion);
+       setNombreEmpresa(nombreEmpresa);
+    }
+ 
+    public void setDireccion(Direccion direccion)
+    {
+       this.direccion=direccion;
+    }
+ 
+    public void setNombreEmpresa(String nombreEmpresa)
+    {
+       this.nombreEmpresa=nombreEmpresa;
+    }
+
+    public Direccion getDireccion()
+    {
+       return direccion;
+    }
+ 
+    public String getNombreEmpresa()
+    {
+       return nombreEmpresa;
+    }
+    
+    public String toString()
+    {
+       return "\n Nombre de la empresa: "+nombreEmpresa+"\n Direccion: "+direccion;
+    }
+ 
+}
+class Principal{
+    public static void main(String args[]){
+        //Crear objeto de nombre
+        System.out.println("\t\t\t ----- Datos del cliente -----");
+        Nombre nombre1=new Nombre(Principal.capturar("Ingrese el nombre del cliente"), Principal.capturar("Ingrese el apellido paterno"), Principal.capturar("Ingrese el apellido materno"));
+        //Crear objeto DireccionCliente
+        Direccion direccionCliente=new Direccion(Principal.capturar("Ingrese la calle"), Principal.capturar("Ingrese el num de casa"), Principal.capturar("Ingrese la colonia"), Principal.capturar("Ingrese el municipio"), Principal.capturar("Ingrese el CP"));
+        //Crear objeto cliente
+        Cliente cliente1=new Cliente(nombre1, direccionCliente, Principal.capturar("Ingrese el RFC"));
+        //Crear objeto Empresa
+        System.out.println("\n\t\t\t ----- Datos de la empresa -----");
+        Direccion direccionEmpresa=new Direccion(Principal.capturar("Ingrese la calle"), Principal.capturar("Ingrese el num del edificio"), Principal.capturar("Ingrese la colonia"), Principal.capturar("Ingrese el municipio"), Principal.capturar("Ingrese el CP"));
+        Empresa empresa1=new Empresa(direccionEmpresa, Principal.capturar("Ingrese el nombre de la empresa"));
+        //Crear objeto Producto
+        System.out.println("\n\t\t\t ----- Datos del producto -----");
+        Producto producto1=new Producto(Integer.parseInt(Principal.capturar("Ingrese la clave del producto")), Principal.capturar("Ingrese el nombre del producto"), Integer.parseInt(Principal.capturar("Ingrese la cantidad")), Double.parseDouble(Principal.capturar("Ingrese el precio del producto")));
+        Producto producto2=new Producto(Integer.parseInt(Principal.capturar("Ingrese la clave del producto")), Principal.capturar("Ingrese el nombre del producto"), Integer.parseInt(Principal.capturar("Ingrese la cantidad")), Double.parseDouble(Principal.capturar("Ingrese el precio del producto")));
+        Producto producto3=new Producto(Integer.parseInt(Principal.capturar("Ingrese la clave del producto")), Principal.capturar("Ingrese el nombre del producto"), Integer.parseInt(Principal.capturar("Ingrese la cantidad")), Double.parseDouble(Principal.capturar("Ingrese el precio del producto")));
+        //Crear objeto Factura
+        System.out.println("\n\t\t\t ----- Datos de la factura -----");
+        Factura factura1=new Factura(Integer.parseInt(Principal.capturar("Ingrese el numero de factura")),producto1,producto2,producto3, Double.parseDouble(Principal.capturar("Ingrese el descuento. Si no tiene ingrese 0.")));
+        System.out.println(factura1);
+        
+
+    }
+    public static String capturar(String mensaje){
+        Scanner s=new Scanner(System.in);
+        System.out.println(mensaje);
+        return s.nextLine();
+     }
 }
