@@ -263,12 +263,13 @@ class Producto
    private int cant;
    private double precio;
    
-   public Producto(int clave, String nombreProducto, int cant, double precio)
+   public Producto(int clave, String nombreProducto, int cant, double precio, byte descuento)
    {
       setClave(clave);
       setNombreProducto(nombreProducto);
       setCant(cant);
       setPrecio(precio);
+      setDescuento(descuento);
    }
 
    public void setClave(int clave)
@@ -290,6 +291,11 @@ class Producto
    {
       this.precio=precio;
    }
+   
+   public void setDescuento(double descuento)
+   {
+      this.descuento=descuento;
+   }
 
    public int getClave()
    {
@@ -309,6 +315,11 @@ class Producto
    public double getPrecio()
    {
       return precio;
+   }
+   
+   public int getDescuento()
+   {
+      return descuento;
    }
    
 }
