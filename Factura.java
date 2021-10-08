@@ -72,7 +72,7 @@ class Factura
    public double calcularDescuento (){
     double subtotal = calcularSubtotal();
     if (descuento != 0)  
-      return subtotal*descuento;
+      return subtotal*(descuento*0.01);
     return descuento;
    }
    
@@ -85,12 +85,18 @@ class Factura
    public double calcularTotal(){
     return calcularSubtotal()-calcularDescuento()+calcularIVA();
    }
+
+  public String espacios(String variable){
+      while(variable.length() < 20){
+          variable += " ";
+      }
+      return variable;
+  }
    
    public String toString(){
       DecimalFormat d= new DecimalFormat("0.00");
-       return "num factura: "+numFactura+" $"+d.format(calcularTotal());
+       return "\n-------------------------------Detalle de Factura-------------------------------\n" + "Clave               Cantidad            Nombre              Precio              \n"+espacios(Integer.toString(producto1.getClave()))+espacios(Integer.toString(producto1.getCant()))+espacios(producto1.getNombreProducto())+espacios(Double.toString(producto1.getPrecio()))+"\n"+espacios(Integer.toString(producto2.getClave()))+espacios(Integer.toString(producto2.getCant()))+espacios(producto2.getNombreProducto())+espacios(Double.toString(producto2.getPrecio()))+"\n"+espacios(Integer.toString(producto3.getClave()))+espacios(Integer.toString(producto3.getCant()))+espacios(producto3.getNombreProducto())+espacios(Double.toString(producto3.getPrecio()))+"\n Descuento: $"+d.format(calcularDescuento())+"\n Subtotal: $"+calcularSubtotal()+"\n IVA: $"+d.format(calcularIVA())+"\nTotal: $"+d.format(calcularTotal());       
    }
-
 }
 
 class Cliente
@@ -132,6 +138,10 @@ class Cliente
    {
       return rfc;
    }
+   
+   public String toString(){
+       return "\n----------------------------Informacion  del Cliente----------------------------\n" + "Nombre: "+getNombre() + "\nRFC: "+getRfc()+"\nDireccion: "+getDireccion();
+       }
 }
 
 class Nombre
@@ -263,13 +273,12 @@ class Producto
    private int cant;
    private double precio;
    
-   public Producto(int clave, String nombreProducto, int cant, double precio, byte descuento)
+   public Producto(int clave, String nombreProducto, int cant, double precio)
    {
       setClave(clave);
       setNombreProducto(nombreProducto);
       setCant(cant);
       setPrecio(precio);
-      setDescuento(descuento);
    }
 
    public void setClave(int clave)
@@ -291,11 +300,6 @@ class Producto
    {
       this.precio=precio;
    }
-   
-   public void setDescuento(double descuento)
-   {
-      this.descuento=descuento;
-   }
 
    public int getClave()
    {
@@ -315,11 +319,6 @@ class Producto
    public double getPrecio()
    {
       return precio;
-   }
-   
-   public int getDescuento()
-   {
-      return descuento;
    }
    
 }
@@ -354,10 +353,9 @@ class Empresa{
        return nombreEmpresa;
     }
     
-    public String toString()
-    {
-       return "\n Nombre de la empresa: "+nombreEmpresa+"\n Direccion: "+direccion;
-    }
+    public String toString(){
+       return "\n---------------------------Informacion de  la Empresa---------------------------\n" + "Nombre: "+getNombreEmpresa() + "\nDireccion: "+getDireccion();
+       }
  
 }
 class Principal{
@@ -375,12 +373,15 @@ class Principal{
         Empresa empresa1=new Empresa(direccionEmpresa, Principal.capturar("Ingrese el nombre de la empresa"));
         //Crear objeto Producto
         System.out.println("\n\t\t\t ----- Datos del producto -----");
-        Producto producto1=new Producto(Integer.parseInt(Principal.capturar("Ingrese la clave del producto")), Principal.capturar("Ingrese el nombre del producto"), Integer.parseInt(Principal.capturar("Ingrese la cantidad")), Double.parseDouble(Principal.capturar("Ingrese el precio del producto"), byte.parseByte(Principal.capturar("Ingrese el porcentaje de descuento del producto")));
-        Producto producto2=new Producto(Integer.parseInt(Principal.capturar("Ingrese la clave del producto")), Principal.capturar("Ingrese el nombre del producto"), Integer.parseInt(Principal.capturar("Ingrese la cantidad")), Double.parseDouble(Principal.capturar("Ingrese el precio del producto"), byte.parseByte(Principal.capturar("Ingrese el porcentaje de descuento del producto")));
-        Producto producto3=new Producto(Integer.parseInt(Principal.capturar("Ingrese la clave del producto")), Principal.capturar("Ingrese el nombre del producto"), Integer.parseInt(Principal.capturar("Ingrese la cantidad")), Double.parseDouble(Principal.capturar("Ingrese el precio del producto"), byte.parseByte(Principal.capturar("Ingrese el porcentaje de descuento del producto")));
+        Producto producto1=new Producto(Integer.parseInt(Principal.capturar("Ingrese la clave del producto")), Principal.capturar("Ingrese el nombre del producto"), Integer.parseInt(Principal.capturar("Ingrese la cantidad")), Double.parseDouble(Principal.capturar("Ingrese el precio del producto")));
+        Producto producto2=new Producto(Integer.parseInt(Principal.capturar("Ingrese la clave del producto")), Principal.capturar("Ingrese el nombre del producto"), Integer.parseInt(Principal.capturar("Ingrese la cantidad")), Double.parseDouble(Principal.capturar("Ingrese el precio del producto")));
+        Producto producto3=new Producto(Integer.parseInt(Principal.capturar("Ingrese la clave del producto")), Principal.capturar("Ingrese el nombre del producto"), Integer.parseInt(Principal.capturar("Ingrese la cantidad")), Double.parseDouble(Principal.capturar("Ingrese el precio del producto")));
         //Crear objeto Factura
         System.out.println("\n\t\t\t ----- Datos de la factura -----");
-        Factura factura1=new Factura(Integer.parseInt(Principal.capturar("Ingrese el numero de factura")),producto1,producto2,producto3, Double.parseDouble(Principal.capturar("Ingrese el descuento. Si no tiene ingrese 0.")));
+        Factura factura1=new Factura(Integer.parseInt(Principal.capturar("Ingrese el numero de factura")),producto1,producto2,producto3, Double.parseDouble(Principal.capturar("Ingrese el descuento en porcentaje. Si no tiene ingrese 0.")));
+        System.out.println("                                  Factura #"+factura1.getNumFactura());
+        System.out.println(empresa1);
+        System.out.println(cliente1);
         System.out.println(factura1);
         
 
@@ -389,5 +390,5 @@ class Principal{
         Scanner s=new Scanner(System.in);
         System.out.println(mensaje);
         return s.nextLine();
-     }
+    }
 }
