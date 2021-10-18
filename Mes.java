@@ -34,6 +34,30 @@ class Calendario{
    {
       return m;
    }
+
+  //Metodo para obtener el mes o meses con temperatura mas alta	
+  public String mayorMes(){
+    String mayor= "";
+    int a = 0;
+    for(byte i = 0; i < 12; i++){
+			if(m[a].getTemperatura() > m[i].getTemperatura()){
+          mayor= m[a].getNombre();
+        }else if(m[a].getTemperatura() < m[i].getTemperatura()){
+            mayor = m[i].getNombre();
+            a = i;
+        }
+    //Validar empates
+    }
+    for(byte w = 0; w < 12; w++){
+      if(m[a].getTemperatura() == m[w].getTemperatura() && m[w].getNombre() != mayor){
+         mayor += "\n"+m[w].getNombre();
+         }
+       }
+    return mayor;
+   
+}
+
+
 	
    //Método para generar los espacios para dar formato de salida en la tabla	
    public String espacios(String variable){
@@ -52,6 +76,7 @@ class Calendario{
       for (byte i=0;i<12;i++){
 		salida += "\n"+espacios(m[i].getNombre())+d.format(m[i].getTemperatura());
 	}
+      salida += " \n\n"+"Mes(es) mas caliente(s): \n"+mayorMes();
       return salida+="\n";
    }
 }
@@ -168,6 +193,8 @@ class Principal{
 			  }while((anio>2022 || anio<1500)||verdadero==false);
 			  return anio;
 	}
+   
+   
 	//crear lista de objetos de Año
 	static ArrayList<Calendario> listaCalendarios=new ArrayList<Calendario>();
 }
