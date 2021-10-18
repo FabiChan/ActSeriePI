@@ -53,14 +53,14 @@ class Principal{
 		String meses[]={"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
 		Mes m[]=new Mes[12];
 		for (byte i=0;i<12;i++){
-			m[i]=new Mes(meses[i],Principal.pTemperatura());
+			m[i]=new Mes(meses[i],Principal.capturarTemperatura());
 		}
 		for (byte i=0;i<12;i++){
 			System.out.println(meses[i]+m[i].getTemperatura());
 		}
 	}
 
-	public static double pTemperatura(){
+	public static double capturarTemperatura(){
 		Scanner s=new Scanner(System.in);
 		System.out.println("Ingresa la temperatura");
 		double temperatura=s.nextDouble();
