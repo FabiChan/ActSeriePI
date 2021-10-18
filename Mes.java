@@ -96,29 +96,35 @@ class Principal{
 		String respuesta="si";
 		int anios=0;
 		short anio=0;
+		//arreglo que contiene los meses
 		String meses[]={"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
+		//inicializar arreglo de objetos de meses
 		Mes m[]=new Mes[12];
+		//ciclo para agregar más años
 		do{			
 			System.out.println("Ingrese el año: ");
 			anio=capturarAnio();
 			anios++;
+		//ciclo para llenar arreglo con temperatura
 		for (byte i=0;i<12;i++){
 			System.out.println("Ingresa la temperatura promedio de "+meses[i]);
+			//creando objetos de mes
 			m[i]=new Mes(meses[i],Principal.capturarTemperatura());
 		}
 			System.out.println("¿Desea agregar otro año?");
 			respuesta=s.next();
 		}while(respuesta.equalsIgnoreCase("si"));
-		
+		//crear arreglo de objetos de los años
 		for (int i=0;i<anios;i++){
 			Calendario calendarios=new Calendario(m,anio);
 			listaCalendarios.add(calendarios);
 		}
+	//imprimir arreglo de objetos de año
       for (byte x=0; x<anios; x++){
 		   System.out.println(listaCalendarios.get(x));
       }
 	}
-
+	//método para preguntar y validar temperatura
 	public static double capturarTemperatura(){
 		double temperatura=0;
 		String numeroS="";
