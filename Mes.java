@@ -3,6 +3,38 @@ import java.util.*;
 import java.text.*;
 
 //clase mes
+class Calendario{
+   
+   private Mes[] m;
+   
+   public Calendario(Mes[] m){
+      setM(m);
+   }
+   
+   public void setM(Mes[] m){
+      this.m=m;
+   }
+   public Mes[] getMes()
+   {
+      return m;
+   }
+   public String espacios(String variable){
+      while(variable.length() < 25){
+          variable += " ";
+      }
+      return variable;
+  }
+   public String toString(){
+      DecimalFormat d= new DecimalFormat("0");
+      String salida = "Promedio de temperaturas del año 2020"+"\n\n  Mes            Promedio Temperatura\n";
+      String nombreMes;
+      for (byte i=0;i<12;i++){
+         nombreMes= espacios(m[i].getNombre());
+			salida += "\n"+nombreMes+d.format(m[i].getTemperatura());
+		}
+      return salida;
+   }
+}
 class Mes {
 	
 	private String nombre;
@@ -41,12 +73,8 @@ class Principal{
          System.out.println("Ingresa la temperatura promedio de "+meses[i]);
 			m[i]=new Mes(meses[i],Principal.capturarTemperatura());
 		}
-      System.out.println("Promedio de temperaturas del año 2020"+"\n\n  Mes            Promedio Temperatura\n");
-		String nombreMes;
-      for (byte i=0;i<12;i++){
-         nombreMes= Principal.espacios(m[i].getNombre());
-			System.out.println(nombreMes+m[i].getTemperatura());
-		}
+      Calendario c2020 = new Calendario(m);
+      System.out.println(c2020);
 	}
 
 	public static byte capturarTemperatura(){
@@ -54,10 +82,4 @@ class Principal{
 		byte temperatura=s.nextByte();
 		return temperatura;
 	}
-   public static String espacios(String variable){
-      while(variable.length() < 25){
-          variable += " ";
-      }
-      return variable;
-  }
 }
