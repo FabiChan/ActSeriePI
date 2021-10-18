@@ -46,7 +46,7 @@ class Calendario{
    //Método para imprimir un objeto de Calendario	
    public String toString(){
       DecimalFormat d= new DecimalFormat("0");
-      String salida = "Promedio de temperaturas del año "+anio+"\n\n  Mes            Promedio Temperatura\n";
+      String salida = "Promedio de temperaturas del año "+anio+"\n\n  Mes            Promedio Temperatura en °C\n";
       String nombreMes;
       //Ciclo para imprimir cada objeto Mes del arreglo m	   
       for (byte i=0;i<12;i++){
