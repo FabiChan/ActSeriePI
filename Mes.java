@@ -17,7 +17,6 @@ class Mes {
 	
 	private String nombre;
 	private double temperatura;
-	private Mes m[]=new Mes[12];
 	public Mes(String nombre, double temperatura) {
 		setNombre(nombre);
 		setTemperatura(temperatura);
