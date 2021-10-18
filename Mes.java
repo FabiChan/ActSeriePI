@@ -37,9 +37,8 @@ class Calendario{
       String salida = "Promedio de temperaturas del año "+anio+"\n\n  Mes            Promedio Temperatura\n";
       String nombreMes;
       for (byte i=0;i<12;i++){
-         nombreMes= espacios(m[i].getNombre());
-			salida += "\n"+nombreMes+d.format(m[i].getTemperatura());
-		}
+		salida += "\n"+espacios(m[i].getNombre())+d.format(m[i].getTemperatura());
+	}
       salida+="\n";
       return salida;
    }
