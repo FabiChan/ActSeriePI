@@ -8,30 +8,42 @@ class Calendario{
    private short anio;
    private Mes[] m;
    
+   //Método constructor de la clase Calendario	
    public Calendario(Mes[] m,short anio){
       setM(m);
 	  setAnio(anio);
    }
    
+   //Método para asignar los meses al arreglo para cada año	
    public void setM(Mes[] m){
       this.m=m;
    }
+	
+   //Método para asignar el valor del año al que se quiera reportar el promedio de las temperaturas	
    public void setAnio(short anio){
 	   this.anio=anio;
    }
+	
+   //Método get para obtener el valor del año 	
    public short anio(){
 	   return anio;
    }
+	
+   //Método para obtener el arreglo de valores de meses del año	
    public Mes[] getMes()
    {
       return m;
    }
+	
+   //Método para generar los espacios para dar formato de salida en la tabla	
    public String espacios(String variable){
       while(variable.length() < 25){
           variable += " ";
       }
       return variable;
   }
+	
+   //Método para imprimir un objeto de Calendario	
    public String toString(){
       DecimalFormat d= new DecimalFormat("0");
       String salida = "Promedio de temperaturas del año "+anio+"\n\n  Mes            Promedio Temperatura\n";
