@@ -48,11 +48,11 @@ class Calendario{
       DecimalFormat d= new DecimalFormat("0");
       String salida = "Promedio de temperaturas del año "+anio+"\n\n  Mes            Promedio Temperatura\n";
       String nombreMes;
+      //Ciclo para imprimir cada objeto Mes del arreglo m	   
       for (byte i=0;i<12;i++){
 		salida += "\n"+espacios(m[i].getNombre())+d.format(m[i].getTemperatura());
 	}
-      salida+="\n";
-      return salida;
+      return salida+="\n";
    }
 }
 //clase mes
@@ -60,27 +60,29 @@ class Mes {
 	
 	private String nombre;
 	private double temperatura;
-   
+   	
+	//Método constructor para un objeto de la clase Mes
 	public Mes(String nombre, double temperatura) {
 		setNombre(nombre);
 		setTemperatura(temperatura);
 	}
-	//metodos set y get
+	//metodos set para asignar el nombre del mes
 	public void setNombre(String nombre) {
 		this.nombre=nombre;
 	}
-	
+	//método para asignar el valor de la temperatura de un mes
 	public void setTemperatura(double temperatura) {
 		this.temperatura=temperatura;
 	}
-
+	//método get para obtener el valor del nombre del mes
 	public String getNombre() {
 		return nombre;
 	}
-	
+	//método get para obtener el valor del promedio de la temperatura en el mes
 	public double getTemperatura() {
 		return temperatura;
 	}
+	//método toString para imprimir el objeto de la clase Mes
 	public String toString(){
 		return " "+getTemperatura();
 	}
