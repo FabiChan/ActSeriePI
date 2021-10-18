@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 import java.text.*;
 
-//clase mes
+//clase calendario que contiene arreglo de objetos mes
 class Calendario{
    
    private Mes[] m;
@@ -35,6 +35,7 @@ class Calendario{
       return salida;
    }
 }
+//clase mes
 class Mes {
 	
 	private String nombre;
