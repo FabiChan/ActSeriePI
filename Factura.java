@@ -193,12 +193,12 @@ class Nombre
 class Direccion
 {
    private String calle;
-   private int numero;
+   private String numero;
    private String colonia;
    private String municipio;
    private int cp;
 
-   public Direccion(String calle, int numero, String colonia, String municipio, int cp)
+   public Direccion(String calle, String numero, String colonia, String municipio, int cp)
    {
       setCalle(calle);
       setNumero(numero);
@@ -212,7 +212,7 @@ class Direccion
       this.calle=calle;
    }
 
-   public void setNumero(int numero)
+   public void setNumero(String numero)
    {
       this.numero=numero;
    }
@@ -237,7 +237,7 @@ class Direccion
       return calle;
    }
 
-   public int getNumero()
+   public String getNumero()
    {
       return numero;
    }
@@ -362,12 +362,12 @@ class Principal{
         System.out.println("\t\t\t ----- Datos del cliente -----");
         Nombre nombre1=new Nombre(Principal.capturar("Ingrese el nombre del cliente"), Principal.capturar("Ingrese el apellido paterno"), Principal.capturar("Ingrese el apellido materno"));
         //Crear objeto DireccionCliente
-        Direccion direccionCliente=new Direccion(Principal.capturar("Ingrese la calle"), Principal.pedirNum("Ingrese el número"), Principal.capturar("Ingrese la colonia"), Principal.capturar("Ingrese el municipio"), Principal.pedirNum("Ingrese el código postal"));
+        Direccion direccionCliente=new Direccion(Principal.capturar("Ingrese la calle del domicilio"), Principal.capturar("Ingrese el numero de su domicilio"), Principal.capturar("Ingrese la colonia"), Principal.capturar("Ingrese el municipio"), Principal.pedirNum("Ingrese el codigo postal"));
         //Crear objeto cliente
         Cliente cliente1=new Cliente(nombre1, direccionCliente, Principal.capturar("Ingrese el RFC"));
         //Crear objeto Empresa
         System.out.println("\n\t\t\t ----- Datos de la empresa -----");
-        Direccion direccionEmpresa=new Direccion(Principal.capturar("Ingrese la calle"), Principal.pedirNum("Ingrese el número"), Principal.capturar("Ingrese la colonia"), Principal.capturar("Ingrese el municipio"), Principal.pedirNum("Ingrese el código postal"));
+        Direccion direccionEmpresa=new Direccion(Principal.capturar("Ingrese la calle"), Principal.capturar("Ingrese el numero"), Principal.capturar("Ingrese la colonia"), Principal.capturar("Ingrese el municipio"), Principal.pedirNum("Ingrese el codigo postal"));
         Empresa empresa1=new Empresa(direccionEmpresa, Principal.capturar("Ingrese el nombre de la empresa"));
         //Crear objeto Detalle del Producto
         System.out.println("\n\t\t\t ----- Datos del producto -----");
