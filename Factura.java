@@ -92,10 +92,19 @@ class Factura
       }
       return variable;
   }
+
+  public String espacios2(String variable){
+      variable="$"+variable;
+      while(variable.length() < 10){
+          variable = " "+variable;
+      }
+      return variable;
+  }
    
    public String toString(){
       DecimalFormat d= new DecimalFormat("0.00");
-       return "\n-------------------------------Detalle de Factura-------------------------------\n" + "Clave               Cantidad            Nombre              Precio              \n"+espacios(Integer.toString(producto1.getClave()))+espacios(Integer.toString(producto1.getCant()))+espacios(producto1.getNombreProducto())+espacios(Double.toString(producto1.getPrecio()))+"\n"+espacios(Integer.toString(producto2.getClave()))+espacios(Integer.toString(producto2.getCant()))+espacios(producto2.getNombreProducto())+espacios(Double.toString(producto2.getPrecio()))+"\n"+espacios(Integer.toString(producto3.getClave()))+espacios(Integer.toString(producto3.getCant()))+espacios(producto3.getNombreProducto())+espacios(Double.toString(producto3.getPrecio()))+"\n\nDescuento: $"+d.format(calcularDescuento())+"\nSubtotal: $"+calcularSubtotal()+"\nIVA: $"+d.format(calcularIVA())+"\nTotal: $"+d.format(calcularTotal());       
+       return "\n-------------------------------Detalle de Factura-------------------------------\n" + "Clave               Cantidad            Nombre              Precio              \n"+espacios(Integer.toString(producto1.getClave()))+espacios(Integer.toString(producto1.getCant()))+espacios(producto1.getNombreProducto())+espacios2(d.format(producto1.getPrecio()))+"\n"+espacios(Integer.toString(producto2.getClave()))+espacios(Integer.toString(producto2.getCant()))+espacios(producto2.getNombreProducto())+espacios2(d.format(producto2.getPrecio()))+"\n"+espacios(Integer.toString(producto3.getClave()))+espacios(Integer.toString(producto3.getCant()))+espacios(producto3.getNombreProducto())+espacios2(d.format(producto3.getPrecio()))+
+       "\n\n                                             Descuento:     "+espacios2(d.format(calcularDescuento()))+"\n                                             Subtotal:      "+espacios2(d.format(calcularSubtotal()))+"\n                                             IVA:           "+espacios2(d.format(calcularIVA()))+"\n                                             Total:         "+ espacios2(d.format(calcularTotal()));       
    }
 }
 
@@ -199,9 +208,9 @@ class Direccion
    private String numero;
    private String colonia;
    private String municipio;
-   private String cp;
+   private int cp;
 
-   public Direccion(String calle, String numero, String colonia, String municipio, String cp)
+   public Direccion(String calle, String numero, String colonia, String municipio, int cp)
    {
       setCalle(calle);
       setNumero(numero);
@@ -230,7 +239,7 @@ class Direccion
       this.municipio=municipio;
    }
 
-   public void setCp(String cp)
+   public void setCp(int cp)
    {
       this.cp=cp;
    }
@@ -255,7 +264,7 @@ class Direccion
       return municipio;
    }
 
-   public String getCp()
+   public int getCp()
    {
       return cp;
    }
@@ -364,18 +373,18 @@ class Principal{
         System.out.println("\t\t\t ----- Datos del cliente -----");
         Nombre nombre1=new Nombre(Principal.capturar("Ingrese el nombre del cliente"), Principal.capturar("Ingrese el apellido paterno"), Principal.capturar("Ingrese el apellido materno"));
         //Crear objeto DireccionCliente
-        Direccion direccionCliente=new Direccion(Principal.capturar("Ingrese la calle"), Principal.capturar("Ingrese el num de casa"), Principal.capturar("Ingrese la colonia"), Principal.capturar("Ingrese el municipio"), Principal.capturar("Ingrese el CP"));
+        Direccion direccionCliente=new Direccion(Principal.capturar("Ingrese la calle"), Principal.capturar("Ingrese el numero de su domicilio"), Principal.capturar("Ingrese la colonia"), Principal.capturar("Ingrese el municipio"), Principal.pedirNum("Ingrese el codigo postal"));
         //Crear objeto cliente
         Cliente cliente1=new Cliente(nombre1, direccionCliente, Principal.capturar("Ingrese el RFC"));
         //Crear objeto Empresa
         System.out.println("\n\t\t\t ----- Datos de la empresa -----");
-        Direccion direccionEmpresa=new Direccion(Principal.capturar("Ingrese la calle"), Principal.capturar("Ingrese el num del edificio"), Principal.capturar("Ingrese la colonia"), Principal.capturar("Ingrese el municipio"), Principal.capturar("Ingrese el CP"));
+        Direccion direccionEmpresa=new Direccion(Principal.capturar("Ingrese la calle"), Principal.capturar("Ingrese el numero"), Principal.capturar("Ingrese la colonia"), Principal.capturar("Ingrese el municipio"), Principal.pedirNum("Ingrese el codigo postal"));
         Empresa empresa1=new Empresa(direccionEmpresa, Principal.capturar("Ingrese el nombre de la empresa"));
         //Crear objeto Producto
         System.out.println("\n\t\t\t ----- Datos del producto -----");
-        Producto producto1=new Producto(Integer.parseInt(Principal.capturar("Ingrese la clave del producto")), Principal.capturar("Ingrese el nombre del producto"), Integer.parseInt(Principal.capturar("Ingrese la cantidad")), Double.parseDouble(Principal.capturar("Ingrese el precio del producto")));
-        Producto producto2=new Producto(Integer.parseInt(Principal.capturar("Ingrese la clave del producto")), Principal.capturar("Ingrese el nombre del producto"), Integer.parseInt(Principal.capturar("Ingrese la cantidad")), Double.parseDouble(Principal.capturar("Ingrese el precio del producto")));
-        Producto producto3=new Producto(Integer.parseInt(Principal.capturar("Ingrese la clave del producto")), Principal.capturar("Ingrese el nombre del producto"), Integer.parseInt(Principal.capturar("Ingrese la cantidad")), Double.parseDouble(Principal.capturar("Ingrese el precio del producto")));
+        Producto producto1=new Producto(Principal.pedirClave(), Principal.capturar("Ingrese el nombre del producto"), Principal.pedirCant(), Double.parseDouble(Principal.capturar("Ingrese el precio del producto")));
+        Producto producto2=new Producto(Principal.pedirClave(), Principal.capturar("Ingrese el nombre del producto"), Principal.pedirCant(), Double.parseDouble(Principal.capturar("Ingrese el precio del producto")));
+        Producto producto3=new Producto(Principal.pedirClave(), Principal.capturar("Ingrese el nombre del producto"), Principal.pedirCant(), Double.parseDouble(Principal.capturar("Ingrese el precio del producto")));
         //Crear objeto Factura
         System.out.println("\n\t\t\t ----- Datos de la factura -----");
         Factura factura1=new Factura(Integer.parseInt(Principal.capturar("Ingrese el numero de factura")),producto1,producto2,producto3, Double.parseDouble(Principal.capturar("Ingrese el descuento en porcentaje. Si no tiene ingrese 0.")));
@@ -391,4 +400,84 @@ class Principal{
         System.out.println(mensaje);
         return s.nextLine();
     }
+    public static int pedirNum(String mensaje){
+    int numEntero=0;
+    String numeroS="";
+    boolean verdadero=true;
+      do{
+        Scanner s=new Scanner(System.in);
+            System.out.println(mensaje);
+            numeroS=s.nextLine(); 
+        try {  
+            numEntero=Integer.parseInt(numeroS); 
+            if(numeroS.length()!=5)
+            System.out.println("Tiene que ser un numero entero de 5 digitos");
+            else
+            return numEntero;
+          } catch(NumberFormatException e){ 
+            verdadero=false;
+            System.out.println("Tiene que ser un numero entero"); 
+          } 
+          }while(numeroS.length()!=5||verdadero==false);
+          return numEntero;
+    }
+    public static int pedirClave(){
+    int numEntero=0;
+    String numeroS="";
+    boolean verdadero=true;
+      do{
+        Scanner s=new Scanner(System.in);
+            System.out.println("Ingresa la clave del producto: ");
+            numeroS=s.nextLine(); 
+        try {  
+            numEntero=Integer.parseInt(numeroS); 
+            if(numeroS.length()!=6)
+            System.out.println("Tiene que ser un numero entero de 6 digitos");
+            else
+            return numEntero;
+          } catch(NumberFormatException e){ 
+            verdadero=false;
+            System.out.println("Tiene que ser un numero entero"); 
+          } 
+          }while(numeroS.length()!=6||verdadero==false);
+          return numEntero;
+    }
+  public static int pedirCant(){
+    int numEntero=0;
+    String numeroS="";
+    boolean verdadero=true;
+      do{
+        Scanner s=new Scanner(System.in);
+            System.out.println("Ingresa la cantidad: ");
+            numeroS=s.nextLine(); 
+        try {  
+            numEntero=Integer.parseInt(numeroS); 
+            return numEntero;
+          } catch(NumberFormatException e){ 
+            verdadero=false;
+            System.out.println("Tiene que ser un numero entero"); 
+          } 
+          }while(verdadero==false);
+          return numEntero;
+    }
+    public static double pedirPrecio(){
+    double numDouble=0;
+    String numeroS="";
+    boolean verdadero=true;
+      do{
+        Scanner s=new Scanner(System.in);
+            System.out.println("Ingresa el precio: ");
+            numeroS=s.nextLine(); 
+        try {  
+            numDouble=Double.parseDouble(numeroS); 
+            return numDouble;
+          } catch(NumberFormatException e){ 
+            verdadero=false;
+            System.out.println("Tiene que ser un numero"); 
+          } 
+          }while(verdadero==false);
+          return numDouble;
+    }
+
+
 }
