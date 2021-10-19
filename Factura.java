@@ -364,7 +364,7 @@ class Principal{
         //Crear objeto DireccionCliente
         Direccion direccionCliente=new Direccion(Principal.capturar("Ingrese la calle del domicilio"), Principal.capturar("Ingrese el numero de su domicilio"), Principal.capturar("Ingrese la colonia"), Principal.capturar("Ingrese el municipio"), Principal.pedirNum("Ingrese el codigo postal"));
         //Crear objeto cliente
-        Cliente cliente1=new Cliente(nombre1, direccionCliente, Principal.capturar("Ingrese el RFC"));
+        Cliente cliente1=new Cliente(nombre1, direccionCliente, Principal.capturarRFC("Ingrese el RFC"));
         //Crear objeto Empresa
         System.out.println("\n\t\t\t ----- Datos de la empresa -----");
         Direccion direccionEmpresa=new Direccion(Principal.capturar("Ingrese la calle"), Principal.capturar("Ingrese el numero"), Principal.capturar("Ingrese la colonia"), Principal.capturar("Ingrese el municipio"), Principal.pedirNum("Ingrese el codigo postal"));
@@ -375,7 +375,7 @@ class Principal{
         int n = s.nextInt();
         DetalleProducto p[] = new DetalleProducto [n];
         for (int i = 0; i<n; i++) {
-            p[i] = new DetalleProducto(Principal.pedirClave(), Principal.capturar("Ingrese el nombre del producto"), Principal.pedirCant(), Double.parseDouble(Principal.capturar("Ingrese el precio del producto")));
+            p[i] = new DetalleProducto(Principal.pedirClave(), Principal.capturarNomPro("Ingrese el nombre del producto"), Principal.pedirCant(), Double.parseDouble(Principal.capturar("Ingrese el precio del producto")));
         }
         //Crear objeto Factura
         System.out.println("\n\t\t\t ----- Datos de la factura -----");
@@ -470,6 +470,24 @@ class Principal{
           }while(verdadero==false);
           return numDouble;
     }
-
+    //método para capturar el RFC para convertirlo a mayúsculas
+    public static String capturarRFC(String mensaje){
+        Scanner s=new Scanner(System.in);
+        System.out.println(mensaje);
+        return s.nextLine().toUpperCase();
+    }
+    
+    //método para capturar y validar el nombre del producto
+    public static String capturarNomPro(String mensaje){
+        Scanner s=new Scanner(System.in);
+        System.out.println(mensaje);
+        String nompro = s.nextLine();
+        while(nompro.length()>20)
+        {
+           System.out.println("Ingrese un nombre menor a 20 caracteres");
+           nompro = s.nextLine();
+        }
+        return nompro;
+    }
 
 }
