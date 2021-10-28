@@ -1,4 +1,7 @@
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
+import java.text.*;
+
 
 public class Cliente {
     private Nombre nombre;
