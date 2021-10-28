@@ -1,0 +1,256 @@
+import java.util.Scanner;
+
+public class Cliente {
+    private Nombre nombre;
+    private Direccion direccion;
+ 
+    public Cliente(Nombre nombre, Direccion direccion)
+    {
+       setNombre(nombre);
+       setDireccion(direccion);
+    }
+ 
+    public void setNombre(Nombre nombre)
+    {
+    this.nombre=nombre;
+    }
+    public void setDireccion(Direccion direccion)
+    {
+    this.direccion=direccion;
+    }
+ 
+    public Nombre getNombre()
+    {
+       return nombre;
+    }
+    public Direccion getDireccion()
+    {
+       return direccion;
+    }
+    
+    public String toString(){
+        return "\n----------------------------Informacion  del Cliente----------------------------\n" + "Nombre: "+getNombre() +"\nDireccion: "+getDireccion();
+        }
+ }
+class Nombre{
+    private String primerNombre;
+   private String apellido1;
+   private String apellido2;
+
+   public Nombre(String primerNombre, String apellido1, String apellido2)
+   {
+      setPrimerNombre(primerNombre);
+      setApellido1(apellido1);
+      setApellido2(apellido2);
+   }
+
+   public void setPrimerNombre(String primerNombre)
+   {
+      this.primerNombre=primerNombre;
+   }
+
+   public void setApellido1(String apellido1)
+   {
+      this.apellido1=apellido1;
+   }
+
+   public void setApellido2(String apellido2)
+   {
+      this.apellido2=apellido2;
+   }
+
+   public String getPrimerNombre()
+   {
+      return primerNombre;
+   }
+
+   public String getApellido1()
+   {
+      return apellido1;
+   }
+
+   public String getApellido2()
+   {
+      return apellido2;
+   }
+
+   public String toString()
+   {
+      return primerNombre+" "+apellido1+" "+apellido2;
+   }
+}
+class Direccion
+{
+   private String calle;
+   private String numero;
+   private String colonia;
+   private String municipio;
+   private int cp;
+
+   public Direccion(String calle, String numero, String colonia, String municipio, int cp)
+   {
+      setCalle(calle);
+      setNumero(numero);
+      setColonia(colonia);
+      setMunicipio(municipio);
+      setCp(cp);
+   }
+
+   public void setCalle(String calle)
+   {
+      this.calle=calle;
+   }
+
+   public void setNumero(String numero)
+   {
+      this.numero=numero;
+   }
+
+   public void setColonia(String colonia)
+   {
+      this.colonia=colonia;
+   }
+
+   public void setMunicipio(String municipio)
+   {
+      this.municipio=municipio;
+   }
+
+   public void setCp(int cp)
+   {
+      this.cp=cp;
+   }
+
+   public String getCalle()
+   {
+      return calle;
+   }
+
+   public String getNumero()
+   {
+      return numero;
+   }
+
+   public String getColonia()
+   {
+      return colonia;
+   }
+
+   public String getMunicipio()
+   {
+      return municipio;
+   }
+
+   public int getCp()
+   {
+      return cp;
+   }
+
+   public String toString()
+   {
+      return calle+", "+numero+", "+colonia+", "+municipio+", "+cp;
+   }
+}
+class Transporte{
+    private String numPlaca;
+    private Nombre nombre;
+    public Transporte(String numPlaca, Nombre nombre){
+        setNumPlaca(numPlaca);
+        setNombre(nombre);
+    }
+    public void setNumPlaca(String numPlaca) {
+        this.numPlaca = numPlaca;
+    }
+    public void setNombre(Nombre nombre) {
+        this.nombre = nombre;
+    }
+    public Nombre getNombre() {
+        return nombre;
+    }
+    public String getNumPlaca() {
+        return numPlaca;
+    }
+    public String toString() {
+        return "El transporte elegido es :" ;
+    }
+}
+class Taxi extends Transporte{
+    private Direccion direccion;
+    public Taxi(String numPlaca, Nombre nombre, Direccion direccion){
+        super(numPlaca, nombre);
+        setDireccion(direccion);
+    }
+    public void setDireccion(Direccion direccion) {
+        this.direccion = direccion;
+    }
+    public Direccion getDireccion() {
+        return direccion;
+    }
+    public String toString() {
+        return super.toString();
+    }
+}
+class Camion extends Transporte{
+    private double costoRuta;
+    public Camion(String numPlaca, Nombre nombre,double costoRuta){
+        super(numPlaca, nombre);
+        setCostoRuta(costoRuta);
+    }
+    public void setCostoRuta(double costoRuta) {
+        this.costoRuta = costoRuta;
+    }
+    public double getCostoRuta() {
+        return costoRuta;
+    }
+    public String toString() {
+        return super.toString()+getCostoRuta();
+    }
+}
+
+class Principal{
+    public static void main(String[] args) {
+         //Crear objeto de nombre
+         System.out.println("\t\t\t ----- Datos del cliente -----");
+         Nombre nombreCliente=new Nombre(Principal.capturar("Ingrese el nombre del cliente"), Principal.capturar("Ingrese el apellido paterno"), Principal.capturar("Ingrese el apellido materno"));
+         //Crear objeto DireccionCliente
+         Direccion direccionCliente=new Direccion(Principal.capturar("Ingrese la calle del domicilio"), Principal.capturar("Ingrese el numero de su domicilio"), Principal.capturar("Ingrese la colonia"), Principal.capturar("Ingrese el municipio"), Principal.pedirNum("Ingrese el codigo postal"));
+         //Crear direccion estacion de Taxi
+         System.out.println("\t\t\t ----- Dirección estación de Taxi -----");
+         Direccion direccionEstacion=new Direccion(Principal.capturar("Ingrese la calle del domicilio"), Principal.capturar("Ingrese el numero de su domicilio"), Principal.capturar("Ingrese la colonia"), Principal.capturar("Ingrese el municipio"), Principal.pedirNum("Ingrese el codigo postal"));
+         //Crear objeto cliente
+         System.out.println("\t\t\t ----- Datos del chofer -----");
+         //Crear objeto Chofer
+         Nombre nombreChofer=new Nombre(Principal.capturar("Ingrese el nombre del chofer"), Principal.capturar("Ingrese el apellido paterno"), Principal.capturar("Ingrese el apellido materno"));
+         //Crear objeto Taxi
+         Taxi taxi1=new Taxi(Principal.capturar("Ingrese numero de placa"), nombreChofer, direccionEstacion);
+         //Crear objeto Camion
+         Camion cam1=new Camion(Principal.capturar("Ingrese numero de placa"), nombreChofer, 200);
+         
+ 
+    }
+
+    public static String capturar(String mensaje){
+        Scanner s=new Scanner(System.in);
+        System.out.println(mensaje);
+        return s.nextLine();
+    }
+    public static int pedirNum(String mensaje){
+    int numEntero=0;
+    String numeroS="";
+    boolean verdadero=true;
+      do{
+        Scanner s=new Scanner(System.in);
+            System.out.println(mensaje);
+            numeroS=s.nextLine(); 
+        try {  
+            numEntero=Integer.parseInt(numeroS); 
+            return numEntero;
+          } catch(NumberFormatException e){ 
+            verdadero=false;
+            System.out.println("Tiene que ser un numero entero"); 
+          } 
+          }while(verdadero==false);
+          return numEntero;
+    }
+
+}
