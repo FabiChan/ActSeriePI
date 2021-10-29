@@ -193,18 +193,30 @@ class Transporte {
 //clase hija taxi de transporte
 class Taxi extends Transporte{
     private Direccion direccion;
-    public Taxi(String numPlaca, Nombre nombre, Direccion direccion){
+    private double costoTaxi;
+    
+    public Taxi(String numPlaca, Nombre nombre, Direccion direccion, double costoTaxi){
         super(numPlaca, nombre);
         setDireccion(direccion);
     }
     public void setDireccion(Direccion direccion) {
         this.direccion = direccion;
     }
+    
+    public void setCostoTaxi(double costoTaxi) {
+        this.costoTaxi = costoTaxi;
+    }
+    
     public Direccion getDireccion() {
         return direccion;
     }
+    
+    public double getCostoTaxi(){
+      return costoTaxi;
+    }
+    
     public String toString() {
-        return super.toString()+" taxi.";
+        return super.toString()+" taxi. \nCosto: "+getCostoTaxi();
     }
 }
 
@@ -227,7 +239,7 @@ class Camion extends Transporte{
     }
     
     public String toString() {
-        return super.toString()+getCostoRuta();
+        return super.toString()+"camion. \nCosto: "+getCostoRuta();
     }
 }
 
@@ -235,22 +247,38 @@ class Camion extends Transporte{
 //clase Principal 
 class Principal{
     public static void main(String[] args) {
+    Scanner s = new Scanner(System.in);
+      byte loop = 1;
+      byte t = 0;
+       do{
          //Crear objeto de nombre
          System.out.println("\t\t\t ----- Datos del cliente -----");
          Nombre nombre = Principal.capturarNombre("Ingrese el nombre completo del cliente");
          //Crear objeto DireccionCliente
          Direccion direccionCliente=new Direccion(Principal.capturar("Ingrese la calle del domicilio del cliente"), Principal.pedirNumEntero("Ingrese el numero de domicilio del cliente"), Principal.capturar("Ingrese la colonia del cliente"), Principal.capturar("Ingrese el municipio del cliente"), Principal.pedirCP("Ingrese el codigo postal del cliente"));
-         //Crear direccion estacion de Taxi
-         System.out.println("\t\t\t ----- Dirección estación de Taxi -----");
-         Direccion direccionEstacion=new Direccion(Principal.capturar("Ingrese la calle del domicilio de la estacion"), Principal.pedirNumEntero("Ingrese el numero de domicilio de la estacion"), Principal.capturar("Ingrese la colonia de la estacion"), Principal.capturar("Ingrese el municipio de la estacion"), Principal.pedirCP("Ingrese el codigo postal de la estacion"));
          //Crear objeto cliente
+         Cliente cliente1 = new Cliente(nombre, direccionCliente);
+         //Crear direccion estacion de Transporte
+         System.out.println("\t\t\t ----- Dirección estación de Transporte -----");
+         Direccion direccionEstacion=new Direccion(Principal.capturar("Ingrese la calle del domicilio de la estacion"), Principal.pedirNumEntero("Ingrese el numero de domicilio de la estacion"), Principal.capturar("Ingrese la colonia de la estacion"), Principal.capturar("Ingrese el municipio de la estacion"), Principal.pedirCP("Ingrese el codigo postal de la estacion"));
          System.out.println("\n\t\t\t ----- Datos del chofer -----");
          //Crear objeto Chofer
          Nombre nombreChofer = Principal.capturarNombre("Ingrese el nombre completo del chofer");
+         System.out.println("Quiere viajar en (1) taxi o en (2) camion? Ingrese el numero de la opcion deseada.");
+         t = s.nextByte();
+         if(t == 1){
          //Crear objeto Taxi
-         Taxi taxi1 = new Taxi(Principal.capturar("Ingrese las placas: "), nombreChofer, direccionEstacion);
+            Taxi taxi1 = new Taxi(Principal.capturar("Ingrese las placas: "), nombreChofer, direccionEstacion, 200.00);
+            System.out.println(taxi1);
+         }else if(t == 2){
          //Crear objeto Camion
-         Camion cam1 = new Camion(Principal.capturar("Ingrese las placas: "), nombreChofer, 200);
+            Camion cam1 = new Camion(Principal.capturar("Ingrese las placas: "), nombreChofer, 5.00);
+            System.out.println(cam1);
+            }
+         System.out.println(cliente1);
+         System.out.println("Quiere realizar otro viaje? Ingrese el numero (1) Si (0) No");
+         loop = s.nextByte();
+        }while(loop == 1);
     }
 
    
