@@ -163,11 +163,12 @@ class Direccion
    }
 }
 
-
 //clase padre transporte
 class Transporte {
-    private String numPlaca;
-    private Nombre nombre;
+
+    protected String numPlaca;
+    protected Nombre nombre;
+    
     public Transporte(String numPlaca, Nombre nombre){
         setNumPlaca(numPlaca);
         setNombre(nombre);
@@ -185,10 +186,9 @@ class Transporte {
         return numPlaca;
     }
     public String toString() {
-        return "El transporte elegido es: ";
+        return "\n\nEl transporte elegido es: ";
     }
 }
-
 
 //clase hija taxi de transporte
 class Taxi extends Transporte{
@@ -198,6 +198,7 @@ class Taxi extends Transporte{
     public Taxi(String numPlaca, Nombre nombre, Direccion direccion, double costoTaxi){
         super(numPlaca, nombre);
         setDireccion(direccion);
+        setCostoTaxi(costoTaxi);
     }
     public void setDireccion(Direccion direccion) {
         this.direccion = direccion;
@@ -216,10 +217,9 @@ class Taxi extends Transporte{
     }
     
     public String toString() {
-        return super.toString()+" taxi. \nCosto: "+getCostoTaxi();
+        return super.toString()+" taxi. \nCosto: $"+getCostoTaxi();
     }
 }
-
 
 //clase hija camion de transporte
 class Camion extends Transporte{
@@ -239,7 +239,7 @@ class Camion extends Transporte{
     }
     
     public String toString() {
-        return super.toString()+"camion. \nCosto: "+getCostoRuta();
+        return super.toString()+"camion. \nCosto: $"+getCostoRuta();
     }
 }
 
@@ -248,36 +248,36 @@ class Camion extends Transporte{
 class Principal{
     public static void main(String[] args) {
     Scanner s = new Scanner(System.in);
-      byte loop = 1;
-      byte t = 0;
-       do{
-         //Crear objeto de nombre
-         System.out.println("\t\t\t ----- Datos del cliente -----");
-         Nombre nombre = Principal.capturarNombre("Ingrese el nombre completo del cliente");
-         //Crear objeto DireccionCliente
-         Direccion direccionCliente=new Direccion(Principal.capturar("Ingrese la calle del domicilio del cliente"), Principal.pedirNumEntero("Ingrese el numero de domicilio del cliente"), Principal.capturar("Ingrese la colonia del cliente"), Principal.capturar("Ingrese el municipio del cliente"), Principal.pedirCP("Ingrese el codigo postal del cliente"));
-         //Crear objeto cliente
-         Cliente cliente1 = new Cliente(nombre, direccionCliente);
-         //Crear direccion estacion de Transporte
-         System.out.println("\t\t\t ----- Dirección estación de Transporte -----");
-         Direccion direccionEstacion=new Direccion(Principal.capturar("Ingrese la calle del domicilio de la estacion"), Principal.pedirNumEntero("Ingrese el numero de domicilio de la estacion"), Principal.capturar("Ingrese la colonia de la estacion"), Principal.capturar("Ingrese el municipio de la estacion"), Principal.pedirCP("Ingrese el codigo postal de la estacion"));
+    //Crear objeto de nombre
+    System.out.println("\n\t\t\t ----- Datos del cliente -----");
+    Nombre nombre = Principal.capturarNombre("Ingrese el nombre completo del cliente");
+    //Crear objeto DireccionCliente
+    Direccion direccionCliente=new Direccion(Principal.capturar("Ingrese la calle del domicilio del cliente"), Principal.pedirNumEntero("Ingrese el numero de domicilio del cliente"), Principal.capturar("Ingrese la colonia del cliente"), Principal.capturar("Ingrese el municipio del cliente"), Principal.pedirCP("Ingrese el codigo postal del cliente"));
+    //Crear objeto cliente
+    Cliente cliente1 = new Cliente(nombre, direccionCliente);
+    System.out.println(cliente1);
+    byte loop = 1;
+    byte t = 0;
+    do{
+         t = Principal.capturarOP("\nQuiere viajar en (1) taxi o en (2) camion? Ingrese el numero de la opcion deseada.");
          System.out.println("\n\t\t\t ----- Datos del chofer -----");
          //Crear objeto Chofer
          Nombre nombreChofer = Principal.capturarNombre("Ingrese el nombre completo del chofer");
-         System.out.println("Quiere viajar en (1) taxi o en (2) camion? Ingrese el numero de la opcion deseada.");
-         t = s.nextByte();
+  
          if(t == 1){
-         //Crear objeto Taxi
-            Taxi taxi1 = new Taxi(Principal.capturar("Ingrese las placas: "), nombreChofer, direccionEstacion, 200.00);
+         //Crear direccion estacion de estacion taxi
+            System.out.println("\n\t\t\t ----- Direccion estación de taxi -----");
+            Direccion direccionEstacion=new Direccion(Principal.capturar("Ingrese la calle del domicilio de la estacion"), Principal.pedirNumEntero("Ingrese el numero de domicilio de la estacion"), Principal.capturar("Ingrese la colonia de la estacion"), Principal.capturar("Ingrese el municipio de la estacion"), Principal.pedirCP("Ingrese el codigo postal de la estacion"));
+            //Crear objeto Taxi
+            Taxi taxi1 = new Taxi(Principal.capturarPlacas("Ingrese las placas: "), nombreChofer, direccionEstacion, 200.00);
             System.out.println(taxi1);
-         }else if(t == 2){
+         }
+         else {
          //Crear objeto Camion
-            Camion cam1 = new Camion(Principal.capturar("Ingrese las placas: "), nombreChofer, 5.00);
+            Camion cam1 = new Camion(Principal.capturarPlacas("Ingrese las placas: "), nombreChofer, 5.00);
             System.out.println(cam1);
-            }
-         System.out.println(cliente1);
-         System.out.println("Quiere realizar otro viaje? Ingrese el numero (1) Si (0) No");
-         loop = s.nextByte();
+         }
+         loop = Principal.capturarOP("\n\nQuiere realizar otro viaje? Ingrese el numero (1) Si (2) No.");
         }while(loop == 1);
     }
 
@@ -298,9 +298,21 @@ class Principal{
    
    //método para capturar variables String
     public static String capturar(String mensaje){
-        Scanner s=new Scanner(System.in);
+        Scanner s = new Scanner(System.in);
         System.out.println(mensaje);
         return s.nextLine();
+    }
+    
+   //método para capturar y validar las opciones
+    public static byte capturarOP(String mensaje){
+        Scanner s=new Scanner(System.in);
+        System.out.println(mensaje);
+        byte a = s.nextByte();
+        if (a!=1 && a!=2) {
+            System.out.println("Ingrese solamente una de esas dos opciones (1) o (2)");
+            a = s.nextByte();
+        }
+        return a;
     }
     
     //método para pedir y validar numeros enteros positivos
@@ -344,5 +356,17 @@ class Principal{
           } 
           }while(numeroS.length()!=5||verdadero==false);
           return numEntero;
+    }
+    
+    //método para capturar y validar placas
+    public static String capturarPlacas(String mensaje){
+        Scanner s = new Scanner(System.in);
+        System.out.println(mensaje);
+        String p = s.nextLine();
+        if (p.length()!=9) {
+            System.out.println("\nLas placas ingresadas no parecen verdaderas. Ingrese las placas correctas.");
+            p = s.nextLine();
+        }
+        return p.toUpperCase();
     }
 }
