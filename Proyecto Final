@@ -1,72 +1,6 @@
 import java.io.*;
 import java.util.*;
 
-//clase qu guarda las cuentas del sistema usuario-contraseña
-public class UsuarioContrasena {
-   HashMap<String,String> accounts = new HashMap<String,String>();
-   
-   //metodo constructor que crea el "diccionario" de usuarios con sus contraseñas
-   UsuarioContrasena() {
-      accounts.put("Arturo","abc123*");
-      accounts.put("Laura","p4t1t0");
-      accounts.put("Juan","PASSWORD");
-      accounts.put("Maria","qwerty");
-   }
-   
-   protected HashMap getAccounts() {
-      return accounts;
-   }
-}
-
-
-//clase principal del sistema
-@SuppressWarnings("unchecked")
-class Principal {
-   public static void main(String[] args) {
-      Principal p = new Principal();
-      boolean acceso = p.darAcceso();
-      if (acceso) {
-         System.out.println("\n'Bienvenido!'");
-      }
-      else
-         System.out.println("\n***Se supero el numero maximo de intentos***");
-   }
-   
-   
-   //método login para dar acceso al sistema 
-   public boolean darAcceso() {
-   Scanner s = new Scanner(System.in);
-      //crear las cuentas ya establecidas
-      UsuarioContrasena usuarioContrasenas = new UsuarioContrasena();
-      //guardar las cuentas en una variable tipo HashMap
-      HashMap<String,String> accounts = usuarioContrasenas.getAccounts();
-      String userID, password;
-      boolean acceso = false;
-      //Permitir hasta 3 intentos de acceso. Sino, sale del sistema por seguridad.
-      for (int i = 0; i<3; i++) {
-         System.out.println("Ingrese el usuario: ");
-         userID = s.nextLine();
-         System.out.println("\nIngrese la contrasena: ");
-         password = s.nextLine();
-         //checar si los datos ingresados concuerdan con alguna cuenta registrada
-         if (accounts.containsKey(userID)) {
-            if (accounts.get(userID).equals(password)){
-               acceso = true;
-               i = 3;
-            }
-            else
-               System.out.println("\nLa contrasena ingresada es incorrecta!\n");   
-         }
-         else
-            System.out.println("\nUsuario no encontrado\n");
-      }
-      return acceso;
-   }
-}
-
-import java.io.*;
-import java.util.*;
-
 class Producto{
    protected String nomProd;
    protected double precio;
@@ -182,4 +116,65 @@ class Limpieza extends Producto{
 }
 
 
+//clase qu guarda las cuentas del sistema usuario-contraseña
+public class UsuarioContrasena {
+   HashMap<String,String> accounts = new HashMap<String,String>();
+   
+   //metodo constructor que crea el "diccionario" de usuarios con sus contraseñas
+   UsuarioContrasena() {
+      accounts.put("Arturo","abc123*");
+      accounts.put("Laura","p4t1t0");
+      accounts.put("Juan","PASSWORD");
+      accounts.put("Maria","qwerty");
+   }
+   
+   protected HashMap getAccounts() {
+      return accounts;
+   }
+}
 
+
+//clase principal del sistema
+@SuppressWarnings("unchecked")
+class Principal {
+   public static void main(String[] args) {
+      Principal p = new Principal();
+      boolean acceso = p.darAcceso();
+      if (acceso) {
+         System.out.println("\n'Bienvenido!'");
+      }
+      else
+         System.out.println("\n***Se supero el numero maximo de intentos***");
+   }
+   
+   
+   //método login para dar acceso al sistema 
+   public boolean darAcceso() {
+   Scanner s = new Scanner(System.in);
+      //crear las cuentas ya establecidas
+      UsuarioContrasena usuarioContrasenas = new UsuarioContrasena();
+      //guardar las cuentas en una variable tipo HashMap
+      HashMap<String,String> accounts = usuarioContrasenas.getAccounts();
+      String userID, password;
+      boolean acceso = false;
+      //Permitir hasta 3 intentos de acceso. Sino, sale del sistema por seguridad.
+      for (int i = 0; i<3; i++) {
+         System.out.println("Ingrese el usuario: ");
+         userID = s.nextLine();
+         System.out.println("\nIngrese la contrasena: ");
+         password = s.nextLine();
+         //checar si los datos ingresados concuerdan con alguna cuenta registrada
+         if (accounts.containsKey(userID)) {
+            if (accounts.get(userID).equals(password)){
+               acceso = true;
+               i = 3;
+            }
+            else
+               System.out.println("\nLa contrasena ingresada es incorrecta!\n");   
+         }
+         else
+            System.out.println("\nUsuario no encontrado\n");
+      }
+      return acceso;
+   }
+}
