@@ -63,3 +63,123 @@ class Principal {
       return acceso;
    }
 }
+
+import java.io.*;
+import java.util.*;
+
+class Producto{
+   protected String nomProd;
+   protected double precio;
+   protected String descripcion;
+   protected int cantidad;
+   
+   public Producto(String nomProd, double precio, String descripcion, int cantidad){
+      setNomProd(nomProd);
+      setPrecio(precio);
+      setDescripcion(descripcion);
+      setCantidad(cantidad);
+   }
+   
+   public void setNomProd(String nomProd) {
+      this.nomProd=nomProd;
+   }
+   
+   public String getNomProd(){
+      return nomProd;
+   }
+   
+   public void setPrecio(double precio) {
+      this.precio=precio;
+   }
+   
+   public double getPrecio(){
+      return precio;
+   }
+   
+   public void setDescripcion(String cantidad) {
+      this.descripcion=descripcion;
+   }
+   
+   public double getDescripcion(){
+      return descripcion;
+   }
+
+   public void setCantidad(int cantidad) {
+      this.cantidad = cantidad;
+   }
+   
+   public int getCantidad(){
+      return cantidad;
+   }
+   
+   public String toString() {
+      return nomProd + precio + descripcion + cantidad;
+   }
+   
+}
+
+class Alimento extends Producto{   
+   private double peso;
+   
+   public Alimento(String nomProd, double precio, String descripcion, int cantidad, double peso){
+      super(nomProd, precio, descripcion, cantidad);
+      setPeso(peso);
+   }
+   
+   public void setPeso(double peso) {
+      this.peso=peso;
+   }
+   
+   public double getPeso(){
+      return peso;
+   }
+   
+   public String toString() {
+      return super.toString() + peso;
+   }
+}
+
+class Ropa extends Producto{   
+   private char talla;
+   
+   public Alimento(String nomProd, double precio, String descripcion, int cantidad, char talla){
+      super(nomProd, precio, descripcion, cantidad);
+      setTalla(talla);
+   }
+   
+   public void setTalla(car talla) {
+      this.talla=talla;
+   }
+   
+   public char getTalla(){
+      return talla;
+   }
+   
+   public String toString() {
+      return super.toString() + talla;
+   }
+}
+
+class Limpieza extends Producto{   
+   private String marca;
+   
+   public Alimento(String nomProd, double precio, String descripcion, int cantidad, String marca){
+      super(nomProd, precio, descripcion, cantidad);
+      setMarca(marca);
+   }
+   
+   public void setMarca(String marca) {
+      this.marca=marca;
+   }
+   
+   public double getMarca(){
+      return marca;
+   }
+   
+   public String toString() {
+      return super.toString() + marca;
+   }
+}
+
+
+
