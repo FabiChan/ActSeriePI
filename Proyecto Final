@@ -1,24 +1,35 @@
 import java.io.*;
 import java.util.*;
 
+
+//clase padre Producto 
 class Producto{
+   protected int codigoProd;
    protected String nomProd;
    protected double precio;
    protected String descripcion;
    protected int cantidad;
    
-   public Producto(String nomProd, double precio, String descripcion, int cantidad){
+   public Producto(int codigoProd, String nomProd, double precio, String descripcion, int cantidad){
+      setCodigoProd(codigoProd);
       setNomProd(nomProd);
       setPrecio(precio);
       setDescripcion(descripcion);
       setCantidad(cantidad);
    }
    
+   public void setCodigoProd(int codigoProd) {
+      this.codigoProd=codigoProd;
+   }
+   
+   public int getCodigoProd() {
+      return codigoProd;
+   } 
    public void setNomProd(String nomProd) {
       this.nomProd=nomProd;
    }
    
-   public String getNomProd(){
+   public String getNomProd() {
       return nomProd;
    }
    
@@ -26,15 +37,15 @@ class Producto{
       this.precio=precio;
    }
    
-   public double getPrecio(){
+   public double getPrecio() {
       return precio;
    }
    
-   public void setDescripcion(String cantidad) {
+   public void setDescripcion(String descripcion) {
       this.descripcion=descripcion;
    }
    
-   public double getDescripcion(){
+   public String getDescripcion() {
       return descripcion;
    }
 
@@ -52,66 +63,123 @@ class Producto{
    
 }
 
-class Alimento extends Producto{   
-   private double peso;
+
+//clase hija Prodcuto Alimento que hereda de la clase padre Producto
+class Alimento extends Producto {   
+   private Fecha fechaCadu;
    
-   public Alimento(String nomProd, double precio, String descripcion, int cantidad, double peso){
-      super(nomProd, precio, descripcion, cantidad);
-      setPeso(peso);
+   public Alimento(int codigoProd, String nomProd, double precio, String descripcion, int cantidad, Fecha fechaCadu) {
+      super(codigoProd, nomProd, precio, descripcion, cantidad);
+      setFechaCadu(fechaCadu);
    }
    
-   public void setPeso(double peso) {
-      this.peso=peso;
+   public void setFechaCadu(Fecha fechaCadu) {
+      this.fechaCadu=fechaCadu;
    }
    
-   public double getPeso(){
-      return peso;
+   public Fecha getFechaCadu(){
+      return fechaCadu;
    }
    
    public String toString() {
-      return super.toString() + peso;
+      return super.toString() + "Fecha de caducidad: " + fechaCadu;
    }
 }
 
+
+//clase hija Prodcuto Ropa que hereda de la clase padre Producto
 class Ropa extends Producto{   
    private char talla;
    
-   public Alimento(String nomProd, double precio, String descripcion, int cantidad, char talla){
-      super(nomProd, precio, descripcion, cantidad);
+   public Ropa(int codigoProd, String nomProd, double precio, String descripcion, int cantidad, char talla) {
+      super(codigoProd, nomProd, precio, descripcion, cantidad);
       setTalla(talla);
    }
    
-   public void setTalla(car talla) {
+   public void setTalla(char talla) {
       this.talla=talla;
    }
    
-   public char getTalla(){
+   public char getTalla() {
       return talla;
    }
    
    public String toString() {
-      return super.toString() + talla;
+      return super.toString() + "Talla: " + talla;
    }
 }
 
+
+//clase hija Prodcuto Limpieza que hereda de la clase padre Producto
 class Limpieza extends Producto{   
-   private String marca;
+   private String tipo;
    
-   public Alimento(String nomProd, double precio, String descripcion, int cantidad, String marca){
-      super(nomProd, precio, descripcion, cantidad);
-      setMarca(marca);
+   public Limpieza(int codigoProd, String nomProd, double precio, String descripcion, int cantidad, String tipo){
+      super(codigoProd, nomProd, precio, descripcion, cantidad);
+      setTipo(tipo);
    }
    
-   public void setMarca(String marca) {
-      this.marca=marca;
+   public void setTipo(String tipo) {
+      this.tipo=tipo;
    }
    
-   public double getMarca(){
-      return marca;
+   public String getTipo(){
+      return tipo;
    }
    
    public String toString() {
-      return super.toString() + marca;
+      return super.toString() + "Tipo: " + tipo;
+   }
+}
+
+
+//clase Fecha que tiene dia mes y año
+class Fecha {
+
+   private int dia;
+   private int mes;
+   private int anio;
+
+   public Fecha(int dia, int mes, int anio)
+   {
+      setDia(dia);
+      setMes(mes);
+      setAnio(anio);
+   }
+
+   public void setDia(int dia)
+   {
+      this.dia=dia;
+   }
+
+   public void setMes(int mes)
+   {
+      this.mes=mes;
+   }
+
+   public void setAnio(int anio)
+   {
+      this.anio=anio;
+   }
+
+   public int getDia()
+   {
+      return dia;
+   }
+
+   public int getMes()
+   {
+      return mes;
+   }
+
+   public int getAnio()
+   {
+      return anio;
+   }
+
+   public String toString()
+   {
+      return dia+"-"+mes+"-"+anio;
    }
 }
 
