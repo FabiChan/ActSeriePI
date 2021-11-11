@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 
-//clase padre Producto 
+//Clase padre Producto 
 class Producto{
    protected int codigoProd;
    protected String nomProd;
@@ -231,6 +231,80 @@ class Nombre
    {
       return primerNombre+" "+apellido1+" "+apellido2;
    }
+}
+
+//Clase Venta
+class Venta{
+   private int codigoVenta;
+   private Empleado empleado;
+   private Producto[] compras;
+   private Fecha fechaVenta;
+   private double descuento;
+   
+//Metodo constructor
+   public Venta(int codigoVenta, Empleado empleado, Producto[] compras, Fecha fechaVenta, double descuento){
+      setCodigoVenta(codigoVenta);
+      setEmpleado(empleado);
+      setCompras(compras);
+      setFechaVenta(fechaVenta);
+      setDescuento(descuento);
+   }
+   
+   public void setCodigoVenta(int codigoVenta)
+   {
+      this.codigoVenta=codigoVenta;
+   }
+
+   public void setEmpleado(Empleado empleado)
+   {
+      this.empleado=empleado;
+   }
+
+   public void setCompras(Producto[] compras)
+   {
+      this.compras=compras;
+   }
+   
+   public void setFechaVenta(Fecha fechaVenta)
+   {
+      this.fechaVenta=fechaVenta;
+   }
+   
+   public void setDescuento(double descuento)
+   {
+      this.descuento=descuento;
+   }
+
+   public int getCodigoVenta()
+   {
+      return codigoVenta;
+   }
+
+   public Empleado getEmpleado()
+   {
+      return empleado;
+   }
+
+   public Producto[] getCompras()
+   {
+      return compras;
+   }
+   
+   public Fecha getFechaVenta()
+   {
+      return fechaVenta;
+   }
+   
+   public double getDescuento()
+   {
+      return descuento;
+   }
+   
+   public String toString()
+   {
+      
+   }
+      
 }
 
 //clase qu guarda las cuentas del sistema usuario-contraseña
