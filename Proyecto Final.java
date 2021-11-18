@@ -1,18 +1,20 @@
 import java.io.*;
 import java.util.*;
+import java.text.*;
+
 //clase padre Producto 
 class Producto{
    protected int codigoProd;
    protected String nomProd;
    protected double precio;
-   protected String descripcion;
+   protected String categoria;
    protected int cantidad;
    
-   public Producto(int codigoProd, String nomProd, double precio, String descripcion, int cantidad){
+   public Producto(int codigoProd, String nomProd, double precio, String categoria, int cantidad){
       setCodigoProd(codigoProd);
       setNomProd(nomProd);
       setPrecio(precio);
-      setDescripcion(descripcion);
+      setCategoria(categoria);
       setCantidad(cantidad);
    }
    
@@ -39,12 +41,12 @@ class Producto{
       return precio;
    }
    
-   public void setDescripcion(String descripcion) {
-      this.descripcion=descripcion;
+   public void setCategoria(String categoria) {
+      this.categoria=categoria;
    }
    
-   public String getDescripcion() {
-      return descripcion;
+   public String getCategoria() {
+      return categoria;
    }
 
    public void setCantidad(int cantidad) {
@@ -55,9 +57,10 @@ class Producto{
       return cantidad;
    }
    
-   public String toString() {
-      return nomProd + precio + descripcion + cantidad;
-   }
+   //@Override
+   //public String toString() {
+      //return "Codigo: "+codigoProd+"\nNombre: "+nomProd+"\nPrecio: $"+precio+"\nCategoria: "+categoria+"\nCantidad: "+ cantidad;
+   //}
    
 }
 
@@ -66,8 +69,8 @@ class Producto{
 class Alimento extends Producto {   
    private Fecha fechaCadu;
    
-   public Alimento(int codigoProd, String nomProd, double precio, String descripcion, int cantidad, Fecha fechaCadu) {
-      super(codigoProd, nomProd, precio, descripcion, cantidad);
+   public Alimento(int codigoProd, String nomProd, double precio, String categoria, int cantidad, Fecha fechaCadu) {
+      super(codigoProd, nomProd, precio, categoria, cantidad);
       setFechaCadu(fechaCadu);
    }
    
@@ -79,9 +82,10 @@ class Alimento extends Producto {
       return fechaCadu;
    }
    
-   public String toString() {
-      return super.toString() + "Fecha de caducidad: " + fechaCadu;
-   }
+   //@Override
+   //public String toString() {       
+      //return super.toString() + "\nFecha de caducidad: "+fechaCadu;
+   //}
 }
 
 
@@ -89,8 +93,8 @@ class Alimento extends Producto {
 class Ropa extends Producto{   
    private char talla;
    
-   public Ropa(int codigoProd, String nomProd, double precio, String descripcion, int cantidad, char talla) {
-      super(codigoProd, nomProd, precio, descripcion, cantidad);
+   public Ropa(int codigoProd, String nomProd, double precio, String categoria, int cantidad, char talla) {
+      super(codigoProd, nomProd, precio, categoria, cantidad);
       setTalla(talla);
    }
    
@@ -112,8 +116,8 @@ class Ropa extends Producto{
 class Limpieza extends Producto{   
    private String tipo;
    
-   public Limpieza(int codigoProd, String nomProd, double precio, String descripcion, int cantidad, String tipo){
-      super(codigoProd, nomProd, precio, descripcion, cantidad);
+   public Limpieza(int codigoProd, String nomProd, double precio, String categoria, int cantidad, String tipo){
+      super(codigoProd, nomProd, precio, categoria, cantidad);
       setTipo(tipo);
    }
    
@@ -181,25 +185,9 @@ class Fecha {
    }
 }
 
-//clase qu guarda las cuentas del sistema usuario-contraseña
-class UsuarioContrasena {
-   HashMap<String,String> accounts = new HashMap<String,String>();
-   
-   //metodo constructor que crea el "diccionario" de usuarios con sus contraseñas
-   UsuarioContrasena() {
-      accounts.put("Arturo","abc123*");
-      accounts.put("Laura","p4t1t0");
-      accounts.put("Juan","PASSWORD");
-      accounts.put("Maria","qwerty");
-   }
-   
-   protected HashMap getAccounts() {
-      return accounts;
-   }
-}
 
-class Nombre
-{
+//Clase Nombre que genera el nombre
+class Nombre {
    private String primerNombre;
    private String apellido1;
    private String apellido2;
@@ -248,6 +236,7 @@ class Nombre
 }
 
 
+//Clase Empleado que guarda sus datos
 class Empleado{
     private Nombre nomEmpleado;
     private Fecha cumple;
@@ -273,6 +262,8 @@ class Empleado{
     }
 }
 
+
+//Clase para crear ventas
 class Venta{
     private int codigoVenta;
     private Empleado empleado;
@@ -341,6 +332,8 @@ class Venta{
     }
 }
 
+
+//Clase que imprime arreglo/lista de ventas realizadas durante el día
 class ReporteDiario{
     private Venta ventasDia;
     public ReporteDiario (Venta ventasDia){
@@ -364,6 +357,77 @@ class ReporteDiario{
     }
 }
 
+//Clase que imprime el inventario de la tienda
+class Inventario{
+    private ArrayList<Alimento> productosA;
+    private ArrayList<Ropa> productosR;
+    private ArrayList<Limpieza> productosL;
+    public Inventario (ArrayList<Alimento> productosA, ArrayList<Ropa> productosR, ArrayList<Limpieza> productosL){
+        setProductosA(productosA);
+        setProductosR(productosR);
+        setProductosL(productosL);
+    }
+    public void setProductosA(ArrayList<Alimento> productosA) {
+        this.productosA = productosA;
+    }
+    public ArrayList<Alimento> getProductosA() {
+        return productosA;
+    }
+    public void setProductosR(ArrayList<Ropa> productosR) {
+        this.productosR = productosR;
+    }
+    public ArrayList<Ropa> getProductosR() {
+        return productosR;
+    }
+    public void setProductosL(ArrayList<Limpieza> productosL) {
+        this.productosL = productosL;
+    }
+    public ArrayList<Limpieza> getProductosL() {
+        return productosL;
+    }  
+     
+    //Método para generar los espacios de formato
+    public String generarEspacios(String variable){
+       while(variable.length() < 22){
+         variable += " ";
+       }
+       return variable;
+    }
+   
+   //método para imprimir el inventario
+   public String toString() {
+      DecimalFormat d= new DecimalFormat("0.00");
+      String salida = "\n\n***************INVENTARIO***************\n\n\n\n------Productos Alimentos------\nCodigo                Nombre                Precio                Categoria             Cantidad              Fecha Caducidad              \n\n";
+      for(Alimento alimento: productosA)
+         salida += generarEspacios(String.valueOf(alimento.getCodigoProd()))+generarEspacios(alimento.getNomProd())+generarEspacios("$"+String.valueOf(d.format(alimento.getPrecio())))+generarEspacios(alimento.getCategoria())+generarEspacios(String.valueOf(alimento.getCantidad()))+generarEspacios((alimento.getFechaCadu()).toString())+"\n";
+      salida += "\n\n------Productos Ropa------\nCodigo                Nombre                Precio                Categoria             Cantidad              Talla              \n\n";
+      for(Ropa ropa: productosR)
+         salida += generarEspacios(String.valueOf(ropa.getCodigoProd()))+generarEspacios(ropa.getNomProd())+generarEspacios("$"+String.valueOf(d.format(ropa.getPrecio())))+generarEspacios(ropa.getCategoria())+generarEspacios(String.valueOf(ropa.getCantidad()))+generarEspacios(String.valueOf(ropa.getTalla()))+"\n";
+      salida += "\n\n------Productos Limpieza------\nCodigo                Nombre                Precio                Categoria             Cantidad              Tipo              \n\n";
+      for(Limpieza limpieza: productosL)
+         salida += generarEspacios(String.valueOf(limpieza.getCodigoProd()))+generarEspacios(limpieza.getNomProd())+generarEspacios("$"+String.valueOf(d.format(limpieza.getPrecio())))+generarEspacios(limpieza.getCategoria())+generarEspacios(String.valueOf(limpieza.getCantidad()))+generarEspacios(limpieza.getTipo())+"\n";
+
+   return salida;
+   }
+}
+
+
+//clase qu guarda las cuentas del sistema usuario-contraseña
+public class UsuarioContrasena {
+   HashMap<String,String> accounts = new HashMap<String,String>();
+   
+   //metodo constructor que crea el "diccionario" de usuarios con sus contraseñas
+   UsuarioContrasena() {
+      accounts.put("Arturo","abc123*");
+      accounts.put("Laura","p4t1t0");
+      accounts.put("Juan","PASSWORD");
+      accounts.put("Maria","qwerty");
+   }
+   
+   protected HashMap getAccounts() {
+      return accounts;
+   }
+}
 
 
 //clase principal del sistema
@@ -373,23 +437,42 @@ class Principal {
       Principal p = new Principal();
       boolean acceso = p.darAcceso();
       if (acceso) {
-         System.out.println("\n'Bienvenido!'");
-         Nombre nombre=new Nombre(p.validarString("Ingrese el nombre: "), p.validarString("Ingresa el apellido paterno: "), p.validarString("Ingresar el apellido materno: "));
-         Fecha fecha=new Fecha(p.validarInt("Ingresa el dia: "), p.validarInt("Ingresa el mes: "), p.validarInt("Ingresa el año: "));
-         Empleado empleado=new Empleado(nombre,fecha); 
-         Scanner s=new Scanner (System.in);
-         System.out.println("Ingrese cuantos productos desea comprar (max 5)");
-         int n = s.nextInt();
-         Producto compra[] = new Producto [n];
-         for (int i = 0; i<n; i++) {
-            compra[i] = new Producto(p.validarInt("Ingresa el código: "), p.validarString("Ingresa el nombre del producto: "), p.validarDouble("Ingresa el precio: "), p.validarString("Ingresa la descripcion: "), p.validarInt("Ingresa la cantidad: "));
+         System.out.println("\n\t\t\t\t'Bienvenido!'");
+         System.out.println("-----------------------------------");
+         try {
+            File f = new File("c:lista-productos.txt");
+            FileInputStream f2 = new FileInputStream(f);
+            InputStreamReader f3 = new InputStreamReader(f2);
+            BufferedReader f4 = new BufferedReader(f3);
+            ArrayList<Alimento> productosAlimento = new ArrayList<>();
+            ArrayList<Ropa> productosRopa = new ArrayList<>();
+            ArrayList<Limpieza> productosLimpieza = new ArrayList<>();
+            String producto, infoProducto [];
+            producto = f4.readLine();
+         while(producto!=null) {
+            infoProducto = producto.split("\\,");            
+            if (infoProducto[3].equals("alimento")) {
+               Alimento a = new Alimento(Integer.parseInt(infoProducto[0]),infoProducto[1],Double.parseDouble(infoProducto[2]),infoProducto[3],Integer.parseInt(infoProducto[4]),p.capturarFecha(infoProducto[5]));
+               productosAlimento.add(a);
+            }
+            else
+               if (infoProducto[3].equals("ropa")) {
+                  Ropa r = new Ropa(Integer.parseInt(infoProducto[0]),infoProducto[1],Double.parseDouble(infoProducto[2]),infoProducto[3],Integer.parseInt(infoProducto[4]),(infoProducto[5]).charAt(0));
+                  productosRopa.add(r);
+               }
+               else {
+                  Limpieza l = new Limpieza(Integer.parseInt(infoProducto[0]),infoProducto[1],Double.parseDouble(infoProducto[2]),infoProducto[3],Integer.parseInt(infoProducto[4]),infoProducto[5]);
+                  productosLimpieza.add(l);
+               }
+            producto = f4.readLine();   
          }
-         Venta venta=new Venta(p.validarInt("Ingrese el código de venta:"), empleado, compra, p.validarDouble("Ingrese el descuento: "));
-         System.out.println(nombre);
-         System.out.println(fecha);
-         System.out.println(empleado);
-         System.out.println(venta);
-
+         Inventario i = new Inventario(productosAlimento,productosRopa,productosLimpieza);
+         System.out.println(i);
+         f4.close();
+      }
+         catch(IOException e) {
+            System.out.println("Error en en la lectura del archivo");
+         }
       }
       else
          System.out.println("\n***Se supero el numero maximo de intentos***");
@@ -425,49 +508,13 @@ class Principal {
       }
       return acceso;
    }
-   public String validarString(String mensaje){
-    //Validar la cantidad máxima para que no salga mal en la salida
-    Scanner s=new Scanner(System.in);
-        System.out.println(mensaje);
-        return s.nextLine();
+   
+   //metodo para convertir la fecha en objeto Fecha
+   public Fecha capturarFecha(String fecha) {
+      String f[] = fecha.split("\\-");//al tener la fecha, la dividimos para obtener cada valor por separado
+      Fecha f1 = new Fecha(Integer.parseInt(f[0]),Integer.parseInt(f[1]),Integer.parseInt(f[2]));
+      return f1;
+   }
 }
-
-    public int validarInt(String mensaje){
-        int numEntero=0;
-        String numeroS="";
-        boolean verdadero=true;
-    do{
-        Scanner s=new Scanner (System.in);
-        System.out.println(mensaje);
-        numeroS=s.nextLine();
-        try{
-            numEntero=Integer.parseInt(numeroS);
-        }catch(NumberFormatException e){
-            verdadero=false;
-            System.out.println("Tiene que ser un número entero");
-        }
-        }while (verdadero==false);
-        return numEntero;
-    }
-
-    public double validarDouble(String mensaje){
-        double numDouble=0;
-        String numeroS="";
-        boolean verdadero=true;
-    do{
-            Scanner s=new Scanner(System.in);
-            System.out.println("Ingresa el precio: ");
-            numeroS=s.nextLine(); 
-            try {  
-            numDouble=Double.parseDouble(numeroS); 
-            }catch(NumberFormatException e){ 
-            verdadero=false;
-            System.out.println("Tiene que ser un numero"); 
-            } 
-        }while(verdadero==false);
-        return numDouble;
-    }
-}
-
 
 
