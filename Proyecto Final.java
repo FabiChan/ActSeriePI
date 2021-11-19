@@ -498,8 +498,7 @@ class Principal {
             double porcentajeDesc, descuento, precioST, totalVenta = 0;
             byte compra = 0;
             do{ //Ciclo que pregunta si hubieron mas compras
-             System.out.println("Ingresa el codigo del producto vendido");
-             productoVenta = s.nextInt();
+             productoVenta = pedirCodigo("Ingresa el codigo del producto vendido");
              System.out.println("Ingrese la cantidad del producto");
              cant = s.nextInt();
              //Validar que categoria de producto se esta comprando
@@ -558,3 +557,25 @@ class Principal {
       return ventas;
    }
 }
+
+ public static int pedirCodigo(String mensaje){
+    int numEntero=0;
+    String numeroS="";
+    boolean verdadero=true;
+      do{
+        Scanner s=new Scanner(System.in);
+            System.out.println(mensaje);
+            numeroS=s.nextLine(); 
+        try {  
+            numEntero=Integer.parseInt(numeroS); 
+            if(numeroS.length()!=6)
+            System.out.println("Tiene que ser un numero entero de 6 digitos");
+            else
+            return numEntero;
+          } catch(NumberFormatException e){ 
+            verdadero=false;
+            System.out.println("Tiene que ser un numero entero"); 
+          } 
+          }while(numeroS.length()!=6||verdadero==false);
+          return numEntero;
+    }
