@@ -396,7 +396,7 @@ class Principal {
          
         //Proceso de lectura del archivo.txt
          try {
-            File f = new File("C:\\Users\\Juan Pablo\\Documents\\JP\\Carrera\\3er Semestre\\Progra Intermedia\\lista-productos.txt");
+            File f = new File("C:lista-productos.txt");
             FileInputStream f2 = new FileInputStream(f);
             InputStreamReader f3 = new InputStreamReader(f2);
             BufferedReader f4 = new BufferedReader(f3);
@@ -429,13 +429,13 @@ class Principal {
       catch(IOException e) {
          System.out.println("Error en en la lectura del archivo");
       }  
-      ventas = p.hacerVenta(p, ventas, productosAlimento, productosRopa, productosLimpieza); //Metodo para realizar ventas 
-      Inventario i2 = new Inventario(productosAlimento,productosRopa,productosLimpieza); //Se crea el inventario actualizado dependiendo de las ventas realizadas
-      p.consultarInventario(p,i2); //Se imprime el inventario actualizado
       try{
-       File f = new File("C:\\Users\\Juan Pablo\\Documents\\JP\\Carrera\\3er Semestre\\Progra Intermedia\\inventario-actualizado.txt");
+       File f = new File("C:inventario-actualizado.txt");
        FileOutputStream f2 = new FileOutputStream(f, true);
        PrintStream f3 = new PrintStream(f2);
+       ventas = p.hacerVenta(p, ventas, productosAlimento, productosRopa, productosLimpieza); //Metodo para realizar ventas 
+       Inventario i2 = new Inventario(productosAlimento,productosRopa,productosLimpieza); //Se crea el inventario actualizado dependiendo de las ventas realizadas
+       p.consultarInventario(p,i2); //Se imprime el inventario actualizado
        f3.println(i2);
        f3.close();
        }catch(IOException e){System.out.println("Error en el archivo");}
@@ -575,7 +575,7 @@ class Principal {
       return b;
       }
 //Validacion opciones
-      public static int validarOpc(){
+      public int validarOpc(){
       int opc;
       boolean verdadero=true;
       Scanner s = new Scanner(System.in);
@@ -593,7 +593,7 @@ class Principal {
 }
 
 //Validacion de codigo de producto
-public static int pedirCodigo(String mensaje){
+public int pedirCodigo(String mensaje){
     int numEntero=0;
     String numeroS="";
     boolean verdadero=true;
@@ -614,6 +614,4 @@ public static int pedirCodigo(String mensaje){
           }while(numeroS.length()!=6||verdadero==false);
           return numEntero;
     }
-
 }
-
