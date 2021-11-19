@@ -3,7 +3,7 @@ import java.util.*;
 import java.text.*;
 
 //clase padre Producto 
-class Producto{
+public class Producto{
    protected int codigoProd;
    protected String nomProd;
    protected double precio;
@@ -413,7 +413,7 @@ class Inventario{
 
 
 //clase qu guarda las cuentas del sistema usuario-contraseña
-public class UsuarioContrasena {
+class UsuarioContrasena {
    HashMap<String,String> accounts = new HashMap<String,String>();
    
    //metodo constructor que crea el "diccionario" de usuarios con sus contraseñas
@@ -439,6 +439,15 @@ class Principal {
       if (acceso) {
          System.out.println("\n\t\t\t\t'Bienvenido!'");
          System.out.println("-----------------------------------");
+         byte respuestaMenu=p.crearMenu();
+         switch(respuestaMenu){
+            case 1: System.out.println("hola");//Hacer venta
+            break;
+            case 2: System.out.println("holaa");//Consultar inventario
+            break;
+            case 3: System.out.println("Holaaa");//Generar reporte de venta
+            break;
+         }
          try {
             File f = new File("c:lista-productos.txt");
             FileInputStream f2 = new FileInputStream(f);
@@ -515,6 +524,18 @@ class Principal {
       Fecha f1 = new Fecha(Integer.parseInt(f[0]),Integer.parseInt(f[1]),Integer.parseInt(f[2]));
       return f1;
    }
-}
 
+   //metodo para crear menú 
+   public byte crearMenu (){
+      Scanner s=new Scanner (System.in);
+      byte respuestaMenu;
+      do{
+         System.out.println("¿Qué desea realizar el día de hoy?\n1.Hacer venta \n2.Consultar Inventario\n3.Generar reporte de venta");
+         respuestaMenu=s.nextByte();
+         if(respuestaMenu<1||respuestaMenu>3)
+         System.out.println("No se encuentra esa opción, intenta de nuevo");
+      }while (respuestaMenu<1||respuestaMenu>3);
+      return respuestaMenu;
+   }
+}
 
