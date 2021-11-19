@@ -550,7 +550,7 @@ class Principal {
                            System.out.println("No existe la cantidad deseada");
                            
             System.out.println("Quieres seguir registrando ventas?(1) Si (0) No");
-            compra = s.nextByte();
+            compra = validarOpc();
             }while(compra != 0);
             ReporteDiario rd = new ReporteDiario(ventas); //Se crea el objeto ReporteDiario con todas las ventas del dia
             System.out.println(rd);
@@ -579,3 +579,24 @@ class Principal {
           }while(numeroS.length()!=6||verdadero==false);
           return numEntero;
     }
+
+public static int validarOpc(){
+   int opc;
+   boolean verdadero=true;
+   do{
+        Scanner s=new Scanner(System.in);
+        opc = s.nextByte(); 
+        try{  
+            numEntero=Integer.parseInt(numeroS); 
+            if(opc!=0 && opc!=1)
+               System.out.println("Debe ingresar un 0 o un 1");
+            else
+            return numEntero;
+          } catch(NumberFormatException e){ 
+            verdadero=false;
+            System.out.println("Debe ingresar un 0 o 1"); 
+          } 
+    }while(verdadero==false || opc!=0 && opc!=1);
+    return opc;
+}
+
