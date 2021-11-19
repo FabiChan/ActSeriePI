@@ -106,9 +106,6 @@ class Ropa extends Producto{
       return talla;
    }
    
-   public String toString() {
-      return super.toString() + "Talla: " + talla;
-   }
 }
 
 
@@ -129,9 +126,6 @@ class Limpieza extends Producto{
       return tipo;
    }
    
-   public String toString() {
-      return super.toString() + "Tipo: " + tipo;
-   }
 }
 
 
