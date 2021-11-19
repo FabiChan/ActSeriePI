@@ -3,7 +3,7 @@ import java.util.*;
 import java.text.*;
 
 //clase padre Producto 
-public class Producto{
+class Producto{
    protected int codigoProd;
    protected String nomProd;
    protected double precio;
@@ -55,13 +55,7 @@ public class Producto{
    
    public int getCantidad(){
       return cantidad;
-   }
-   
-   //@Override
-   //public String toString() {
-      //return "Codigo: "+codigoProd+"\nNombre: "+nomProd+"\nPrecio: $"+precio+"\nCategoria: "+categoria+"\nCantidad: "+ cantidad;
-   //}
-   
+   }   
 }
 
 
@@ -82,10 +76,6 @@ class Alimento extends Producto {
       return fechaCadu;
    }
    
-   //@Override
-   //public String toString() {       
-      //return super.toString() + "\nFecha de caducidad: "+fechaCadu;
-   //}
 }
 
 
@@ -104,11 +94,7 @@ class Ropa extends Producto{
    
    public char getTalla() {
       return talla;
-   }
-   
-   public String toString() {
-      return super.toString() + "Talla: " + talla;
-   }
+   }   
 }
 
 
@@ -127,10 +113,6 @@ class Limpieza extends Producto{
    
    public String getTipo(){
       return tipo;
-   }
-   
-   public String toString() {
-      return super.toString() + "Tipo: " + tipo;
    }
 }
 
@@ -186,100 +168,18 @@ class Fecha {
 }
 
 
-//Clase Nombre que genera el nombre
-class Nombre {
-   private String primerNombre;
-   private String apellido1;
-   private String apellido2;
-
-   public Nombre(String primerNombre, String apellido1, String apellido2)
-   {
-      setPrimerNombre(primerNombre);
-      setApellido1(apellido1);
-      setApellido2(apellido2);
-   }
-
-   public void setPrimerNombre(String primerNombre)
-   {
-      this.primerNombre=primerNombre;
-   }
-
-   public void setApellido1(String apellido1)
-   {
-      this.apellido1=apellido1;
-   }
-
-   public void setApellido2(String apellido2)
-   {
-      this.apellido2=apellido2;
-   }
-
-   public String getPrimerNombre()
-   {
-      return primerNombre;
-   }
-
-   public String getApellido1()
-   {
-      return apellido1;
-   }
-
-   public String getApellido2()
-   {
-      return apellido2;
-   }
-
-   public String toString()
-   {
-      return primerNombre+" "+apellido1+" "+apellido2;
-   }
-}
-
-
-//Clase Empleado que guarda sus datos
-class Empleado{
-    private Nombre nomEmpleado;
-    private Fecha cumple;
-    public Empleado(Nombre nomEmpleado, Fecha cumple){
-        setNomEmpleado(nomEmpleado);
-        setCumple(cumple);
-    }
-    public void setNomEmpleado(Nombre nomEmpleado) {
-        this.nomEmpleado = nomEmpleado;
-    }
-    public void setCumple(Fecha cumple) {
-        this.cumple = cumple;
-    }
-    public Nombre getNomEmpleado() {
-        return nomEmpleado;
-    }
-    public Fecha getCumple() {
-        return cumple;
-    }
-    public String toString() {
-
-        return "Empleado: "+getNomEmpleado()+" " +getCumple();
-    }
-}
-
-
 //Clase para crear ventas
 class Venta{
     private int codigoVenta;
-    private Empleado empleado;
     private Producto compras[];
     private double descuento;
-    public Venta(int codigoVenta, Empleado empleado, Producto compras[], double descuento){
+    public Venta(int codigoVenta, Producto compras[], double descuento){
         setCodigoVenta(codigoVenta);
-        setEmpleado(empleado);
         setCompras(compras);
         setDescuento(descuento);
     }
     public void setCodigoVenta(int codigoVenta) {
         this.codigoVenta = codigoVenta;
-    }
-    public void setEmpleado(Empleado empleado) {
-        this.empleado = empleado;
     }
     public void setCompras(Producto[] compras) {
         this.compras = compras;
@@ -289,9 +189,6 @@ class Venta{
     }
     public int getCodigoVenta() {
         return codigoVenta;
-    }
-    public Empleado getEmpleado() {
-        return empleado;
     }
     public Producto[] getCompras() {
         return compras;
@@ -413,7 +310,7 @@ class Inventario{
 
 
 //clase qu guarda las cuentas del sistema usuario-contraseña
-class UsuarioContrasena {
+public class UsuarioContrasena {
    HashMap<String,String> accounts = new HashMap<String,String>();
    
    //metodo constructor que crea el "diccionario" de usuarios con sus contraseñas
@@ -433,64 +330,25 @@ class UsuarioContrasena {
 //clase principal del sistema
 @SuppressWarnings("unchecked")
 class Principal {
-   
    public static void main(String[] args) {
       Principal p = new Principal();
       boolean acceso = p.darAcceso();
       if (acceso) {
          System.out.println("\n\t\t\t\t'Bienvenido!'");
          System.out.println("-----------------------------------");
-         byte opc=0;
-         do{
-            byte respuestaMenu=p.crearMenu();
-            
-         switch(respuestaMenu){
-            case 1: System.out.println("hola");//Hacer venta
-            break;
-            case 2: System.out.println("holaa");//Consultar inventario
-            break;
-            case 3: System.out.println("Holaaa");//Generar reporte de venta
-            break;
-         }
-         Scanner s=new Scanner (System.in);
-         System.out.println("¿Desea realizar otra cosa? 1.Si 2.No");
-         opc=s.nextByte();
-         }
-         while (opc==1);
-
-         try {
-            File f = new File("c:lista-productos.txt");
-            FileInputStream f2 = new FileInputStream(f);
-            InputStreamReader f3 = new InputStreamReader(f2);
-            BufferedReader f4 = new BufferedReader(f3);
-            ArrayList<Alimento> productosAlimento = new ArrayList<>();
-            ArrayList<Ropa> productosRopa = new ArrayList<>();
-            ArrayList<Limpieza> productosLimpieza = new ArrayList<>();
-            String producto, infoProducto [];
-            producto = f4.readLine();
-         while(producto!=null) {
-            infoProducto = producto.split("\\,");            
-            if (infoProducto[3].equals("alimento")) {
-               Alimento a = new Alimento(Integer.parseInt(infoProducto[0]),infoProducto[1],Double.parseDouble(infoProducto[2]),infoProducto[3],Integer.parseInt(infoProducto[4]),p.capturarFecha(infoProducto[5]));
-               productosAlimento.add(a);
+         boolean continuar = true;
+         byte respuestaMenu;
+         while (continuar) {
+            respuestaMenu = p.crearMenu();
+            switch(respuestaMenu){
+               case 1: System.out.println("hola");//Hacer venta
+               break;
+               case 2: p.consultarInventario(p);//Consultar inventario
+               break;
+               case 3: System.out.println("Holaaa");//Generar reporte de venta
+               break;
             }
-            else
-               if (infoProducto[3].equals("ropa")) {
-                  Ropa r = new Ropa(Integer.parseInt(infoProducto[0]),infoProducto[1],Double.parseDouble(infoProducto[2]),infoProducto[3],Integer.parseInt(infoProducto[4]),(infoProducto[5]).charAt(0));
-                  productosRopa.add(r);
-               }
-               else {
-                  Limpieza l = new Limpieza(Integer.parseInt(infoProducto[0]),infoProducto[1],Double.parseDouble(infoProducto[2]),infoProducto[3],Integer.parseInt(infoProducto[4]),infoProducto[5]);
-                  productosLimpieza.add(l);
-               }
-            producto = f4.readLine();   
-         }
-         Inventario i = new Inventario(productosAlimento,productosRopa,productosLimpieza);
-         System.out.println(i);
-         f4.close();
-      }
-         catch(IOException e) {
-            System.out.println("Error en en la lectura del archivo");
+            continuar = p.seguirSistema("Quiere seguir usando el sistema?");
          }
       }
       else
@@ -534,18 +392,71 @@ class Principal {
       Fecha f1 = new Fecha(Integer.parseInt(f[0]),Integer.parseInt(f[1]),Integer.parseInt(f[2]));
       return f1;
    }
-
+   
    //metodo para crear menú 
-   public byte crearMenu (){
+   public byte crearMenu(){
       Scanner s=new Scanner (System.in);
       byte respuestaMenu;
       do{
-         System.out.println("¿Qué desea realizar el día de hoy?\n1.Hacer venta \n2.Consultar Inventario\n3.Generar reporte de venta");
+         System.out.println("\n\nQue desea realizar el dia de hoy?\n\n1.Hacer venta \n2.Consultar Inventario\n3.Generar reporte de venta\n\n");
          respuestaMenu=s.nextByte();
          if(respuestaMenu<1||respuestaMenu>3)
-         System.out.println("No se encuentra esa opción, intenta de nuevo");
+         System.out.println("No se encuentra esa opcion, intenta de nuevo\n");
       }while (respuestaMenu<1||respuestaMenu>3);
       return respuestaMenu;
    }
-}
+   
+   //metodo para capturar la respuesta de seguir usando el sistema menú 
+   public boolean seguirSistema (String mensaje){
+      Scanner s=new Scanner (System.in);
+      System.out.println(mensaje);
+      String respuesta = s.next();
+      boolean continuar;
+      do {
+      if(respuesta.equalsIgnoreCase("no"))
+         continuar = false;
+      else
+         continuar = true;
+      }while (!respuesta.equalsIgnoreCase("no")&&!respuesta.equalsIgnoreCase("si"));
+      return continuar;
+   }
 
+
+   //método para consultar el inventario
+   public void consultarInventario(Principal p) {
+         try {
+            File f = new File("c:lista-productos.txt");
+            FileInputStream f2 = new FileInputStream(f);
+            InputStreamReader f3 = new InputStreamReader(f2);
+            BufferedReader f4 = new BufferedReader(f3);
+            ArrayList<Alimento> productosAlimento = new ArrayList<>();
+            ArrayList<Ropa> productosRopa = new ArrayList<>();
+            ArrayList<Limpieza> productosLimpieza = new ArrayList<>();
+            String producto, infoProducto [];
+            producto = f4.readLine();
+         while(producto!=null) {
+            infoProducto = producto.split("\\,");            
+            if (infoProducto[3].equals("alimento")) {
+               Alimento a = new Alimento(Integer.parseInt(infoProducto[0]),infoProducto[1],Double.parseDouble(infoProducto[2]),infoProducto[3],Integer.parseInt(infoProducto[4]),p.capturarFecha(infoProducto[5]));
+               productosAlimento.add(a);
+            }
+            else
+               if (infoProducto[3].equals("ropa")) {
+                  Ropa r = new Ropa(Integer.parseInt(infoProducto[0]),infoProducto[1],Double.parseDouble(infoProducto[2]),infoProducto[3],Integer.parseInt(infoProducto[4]),(infoProducto[5]).charAt(0));
+                  productosRopa.add(r);
+               }
+               else {
+                  Limpieza l = new Limpieza(Integer.parseInt(infoProducto[0]),infoProducto[1],Double.parseDouble(infoProducto[2]),infoProducto[3],Integer.parseInt(infoProducto[4]),infoProducto[5]);
+                  productosLimpieza.add(l);
+               }
+            producto = f4.readLine();   
+         }
+         Inventario i = new Inventario(productosAlimento,productosRopa,productosLimpieza);
+         System.out.println(i);
+         f4.close();
+      }
+      catch(IOException e) {
+         System.out.println("Error en en la lectura del archivo");
+      }
+   }
+}
