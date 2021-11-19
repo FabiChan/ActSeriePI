@@ -106,6 +106,9 @@ class Ropa extends Producto{
       return talla;
    }
    
+   public String toString() {
+      return super.toString() + "Talla: " + talla;
+   }
 }
 
 
@@ -126,6 +129,9 @@ class Limpieza extends Producto{
       return tipo;
    }
    
+   public String toString() {
+      return super.toString() + "Tipo: " + tipo;
+   }
 }
 
 
@@ -427,13 +433,17 @@ class UsuarioContrasena {
 //clase principal del sistema
 @SuppressWarnings("unchecked")
 class Principal {
+   
    public static void main(String[] args) {
       Principal p = new Principal();
       boolean acceso = p.darAcceso();
       if (acceso) {
          System.out.println("\n\t\t\t\t'Bienvenido!'");
          System.out.println("-----------------------------------");
-         byte respuestaMenu=p.crearMenu();
+         byte opc=0;
+         do{
+            byte respuestaMenu=p.crearMenu();
+            
          switch(respuestaMenu){
             case 1: System.out.println("hola");//Hacer venta
             break;
@@ -442,6 +452,12 @@ class Principal {
             case 3: System.out.println("Holaaa");//Generar reporte de venta
             break;
          }
+         Scanner s=new Scanner (System.in);
+         System.out.println("¿Desea realizar otra cosa? 1.Si 2.No");
+         opc=s.nextByte();
+         }
+         while (opc==1);
+
          try {
             File f = new File("c:lista-productos.txt");
             FileInputStream f2 = new FileInputStream(f);
