@@ -262,7 +262,7 @@ class ReporteDiario{
     public void setVentas(ArrayList<Venta> ventas) {
         this.ventas = ventas;
     }
-    public ArrayList<Venta> ventas() {
+    public ArrayList<Venta> getVentas() {
         return ventas;
     }
 
@@ -429,7 +429,7 @@ class Principal {
       catch(IOException e) {
          System.out.println("Error en en la lectura del archivo");
       }  
-      ventas = p.hacerVenta(ventas, productosAlimento, productosRopa, productosLimpieza); //Metodo para realizar ventas 
+      ventas = p.hacerVenta(p, ventas, productosAlimento, productosRopa, productosLimpieza); //Metodo para realizar ventas 
       Inventario i2 = new Inventario(productosAlimento,productosRopa,productosLimpieza); //Se crea el inventario actualizado dependiendo de las ventas realizadas
       p.consultarInventario(p,i2); //Se imprime el inventario actualizado
       try{
@@ -491,16 +491,16 @@ class Principal {
    }
    
    //Metodo para realizar ventas y mantener registro de cambios en el inventario
-   public ArrayList<Venta> hacerVenta(ArrayList<Venta> ventas, ArrayList<Alimento> productosAlimento, ArrayList<Ropa> productosRopa, ArrayList<Limpieza> productosLimpieza) {
+   public ArrayList<Venta> hacerVenta(Principal p, ArrayList<Venta> ventas, ArrayList<Alimento> productosAlimento, ArrayList<Ropa> productosRopa, ArrayList<Limpieza> productosLimpieza) {
       Scanner s=new Scanner (System.in);
             int productoVenta, cant =0;
             int numArticulo = 1;
             double porcentajeDesc, descuento, precioST, totalVenta = 0;
-            byte compra = 0;
+            int compra = 0;
             do{ //Ciclo que pregunta si hubieron mas compras
              productoVenta = pedirCodigo("Ingresa el codigo del producto vendido");
              System.out.println("Ingrese la cantidad del producto");
-             cant = s.nextInt();
+             cant = p.validarPositivo(s.nextInt());
              //Validar que categoria de producto se esta comprando
              for(Alimento alimento: productosAlimento)
                if(alimento.getCodigoProd() == productoVenta){
@@ -539,7 +539,7 @@ class Principal {
                   if(limpieza.getCantidad() > 0 && limpieza.getCantidad() >= cant){ 
                          limpieza.setCantidad(limpieza.getCantidad() - cant);
                          System.out.println("Ingrese el descuento del producto. Si no tiene ingresa 0.");
-                         porcentajeDesc = s.nextDouble();
+                         porcentajeDesc = p.validarDescuento(s.nextDouble());
                          descuento = (limpieza.getPrecio() * cant) * (porcentajeDesc / 100);
                          precioST = limpieza.getPrecio() * cant - descuento;
                          Venta v = new Venta(numArticulo,limpieza.getNomProd(),limpieza.getPrecio(),descuento, precioST);
@@ -556,9 +556,44 @@ class Principal {
             System.out.println(rd);
       return ventas;
    }
+//Validacion de numero positivo
+      public int validarPositivo(int a){
+      Scanner s = new Scanner(System.in);
+      while(a <= 0){
+      System.out.println("Favor de ingresar un numero entero y mayor de 0");
+      a = s.nextInt();
+      }
+      return a;
+      }
+//Validar descuento   
+      public double validarDescuento(double b){
+      Scanner s = new Scanner(System.in);
+      while(b < 0.0){
+      System.out.println("Favor de ingresar un numero mayor o igual a 0");
+      b = s.nextDouble();
+      }
+      return b;
+      }
+//Validacion opciones
+      public static int validarOpc(){
+      int opc;
+      boolean verdadero=true;
+      Scanner s = new Scanner(System.in);
+      do{
+        opc = s.nextInt(); 
+        try{  
+            if(opc!=0 && opc!=1)
+               System.out.println("Debe ingresar un 0 o un 1");
+          } catch(NumberFormatException e){ 
+            verdadero=false;
+            System.out.println("Debe ingresar un 0 o 1"); 
+          } 
+    }while(verdadero==false || opc!=0 && opc!=1);
+    return opc;
 }
 
- public static int pedirCodigo(String mensaje){
+//Validacion de codigo de producto
+public static int pedirCodigo(String mensaje){
     int numEntero=0;
     String numeroS="";
     boolean verdadero=true;
@@ -580,23 +615,5 @@ class Principal {
           return numEntero;
     }
 
-public static int validarOpc(){
-   int opc;
-   boolean verdadero=true;
-   do{
-        Scanner s=new Scanner(System.in);
-        opc = s.nextByte(); 
-        try{  
-            numEntero=Integer.parseInt(numeroS); 
-            if(opc!=0 && opc!=1)
-               System.out.println("Debe ingresar un 0 o un 1");
-            else
-            return numEntero;
-          } catch(NumberFormatException e){ 
-            verdadero=false;
-            System.out.println("Debe ingresar un 0 o 1"); 
-          } 
-    }while(verdadero==false || opc!=0 && opc!=1);
-    return opc;
 }
 
